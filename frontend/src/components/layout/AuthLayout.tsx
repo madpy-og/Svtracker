@@ -1,5 +1,5 @@
 import React, { type ReactNode } from "react";
-import authImg from "../../assets/images/vector1.webp";
+import authImg from "../../assets/images/bg-auth.webp";
 
 type Props = {
   children: ReactNode;
@@ -8,10 +8,12 @@ type Props = {
 const AuthLayout = ({ children }: Props) => {
   return (
     <div className="h-screen w-screen bg-cuswhite grid grid-cols-2">
-      <div className="w-full h-full p-5">
-        <div className="w-full h-full bg-cusblack rounded-[30px]">
-          <div></div>
-        </div>
+      <div className="w-full h-full flex justify-center items-center p-5">
+        <img
+          className="w-160 h-150 rounded-[30px]"
+          src={authImg}
+          alt="bg-auth"
+        />
       </div>
       <div>{children}</div>
     </div>
