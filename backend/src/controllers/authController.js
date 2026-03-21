@@ -20,7 +20,7 @@ export const loginUser = async (req, res) => {
       return res.status(400).json("Password tidak valid");
     }
 
-    const token = generateToken(user._id);
+    const token = await generateToken(user._id);
 
     res
       .cookie("token", token, {
@@ -47,6 +47,10 @@ export const registerUser = async (req, res) => {
   } catch (error) {
     console.error(error);
   }
+};
+
+export const checkAuth = async (req, res) => {
+  res.status(200).json({ _id: req.user._id });
 };
 
 export const getUserInfo = async (req, res) => {

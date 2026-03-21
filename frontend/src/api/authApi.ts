@@ -1,0 +1,52 @@
+const BASE_URL = "http://localhost:3000/api/v1";
+
+type User = {
+  fullname?: string;
+  email: string;
+  password: string;
+};
+
+export const checkAuth = async () => {
+  try {
+    const res = await fetch(`${BASE_URL}/auth/me`, {
+      credentials: "include",
+    });
+
+    return res.ok;
+  } catch (error) {
+    return false;
+  }
+};
+
+export const register = async (user: User) => {
+  const res = await fetch(`${BASE_URL}/auth/register`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(user),
+  });
+
+  if (!res.ok) {
+    console.log("Failed to register account");
+  }
+
+  return res.json();
+};
+
+export const login = async (user: User) => {
+  const res = await fetch(`${BASE_URL}/auth/login`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    credentials: "include",
+    body: JSON.stringify(user),
+  });
+
+  if (!res.ok) {
+    console.log("Failed to login");
+  }
+
+  return res.json();
+};

@@ -1,9 +1,10 @@
 import React from "react";
 import AuthLayout from "../../components/layout/AuthLayout";
+import { login } from "../../api/authApi";
 import { useForm } from "react-hook-form";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 
 const loginSchema = z.object({
   email: z.string().min(3),
@@ -13,6 +14,8 @@ const loginSchema = z.object({
 type LoginSchema = z.infer<typeof loginSchema>;
 
 const Login = () => {
+  const navigate = useNavigate();
+
   const form = useForm<LoginSchema>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -22,29 +25,40 @@ const Login = () => {
   });
 
   const handleSubmit = async (value: LoginSchema) => {
-    console.log(`halo namaku adalah ${value.email}`);
+    try {
+      const data = await login(value);
 
-    //login api
+      if (!data) {
+        console.log("Failed to login");
+      }
+
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   return (
     <AuthLayout>
-      <div className="w-full h-full pr-5 flex flex-col items-center justify-center gap-9.75">
+      <div className="w-full h-full md:pr-5 flex flex-col items-center justify-center gap-7.5 md:gap-9.75">
         <div className="flex flex-col items-center justify-center">
-          <h2 className="text-h3 md:text-h2 text-cusblack font-bold">
+          <h2 className="text-h2-m md:text-h2 text-cusblack font-bold">
             Welcome Back
           </h2>
-          <p className="md:text-bd text-center text-cusdarkgrey font-semibold">
+          <p className="text-bs-m md:text-bs text-center text-cusdarkgrey font-semibold">
             Please enter your credentials to access your account.
           </p>
         </div>
         <form
           onSubmit={form.handleSubmit(handleSubmit)}
-          className="w-70 md:w-103.5 flex flex-col gap-9.75"
+          className="w-full max-w-md flex flex-col gap-9.75"
         >
           <div className="flex flex-col gap-2.5">
             <div className="flex flex-col">
-              <label htmlFor="email" className="text-bd font-semibold mb-1">
+              <label
+                htmlFor="email"
+                className="text-bd-m md:text-bd font-semibold mb-1"
+              >
                 Email
               </label>
               <input
@@ -52,11 +66,14 @@ const Login = () => {
                 id="email"
                 placeholder="madda.athiarahman@gmail.com"
                 {...form.register("email")}
-                className="w-full h-9 px-3.75 text-bs font-semibold bg-cuswhite border-2 border-cusdarkgrey rounded-md outline-none focus:border-none focus:ring-2 focus:ring-cusorange text-cusblack placeholder:text-bs placeholder:font-semibold placeholder:text-cusdarkgrey"
+                className="input-box"
               />
             </div>
             <div className="flex flex-col">
-              <label htmlFor="password" className="text-bd font-semibold mb-1">
+              <label
+                htmlFor="password"
+                className="text-bd-m md:text-bd font-semibold mb-1"
+              >
                 Password
               </label>
               <input
@@ -64,15 +81,15 @@ const Login = () => {
                 id="password"
                 placeholder="••••••••••"
                 {...form.register("password")}
-                className="w-full h-9 px-3.75 text-bs font-semibold bg-cuswhite border-2 border-cusdarkgrey rounded-md outline-none focus:border-none focus:ring-2 focus:ring-cusorange text-cusblack placeholder:text-bs placeholder:text-cusdarkgrey"
+                className="input-box"
               />
             </div>
           </div>
-          <button className="h-9 bg-cusorange text-cuswhite text-bd font-semibold rounded-md cursor-pointer">
+          <button className="h-7 md:h-9 bg-cusorange text-cuswhite text-bd-m md:text-bd font-semibold rounded-md cursor-pointer">
             Login
           </button>
         </form>
-        <p className="text-bs text-cusdarkgrey font-semibold">
+        <p className="text-bs-m md:text-bs text-cusdarkgrey font-semibold">
           Don't have an account?{" "}
           <Link
             to="/register"
