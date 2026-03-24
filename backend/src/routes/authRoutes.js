@@ -2,7 +2,6 @@ import express from "express";
 import {
   loginUser,
   registerUser,
-  getUserInfo,
   checkAuth,
 } from "../controllers/authController.js";
 import {

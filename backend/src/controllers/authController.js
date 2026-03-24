@@ -50,10 +50,9 @@ export const registerUser = async (req, res) => {
 };
 
 export const checkAuth = async (req, res) => {
-  res.status(200).json({ _id: req.user._id });
-};
-
-export const getUserInfo = async (req, res) => {
   try {
-  } catch (error) {}
+    res.status(200).json({ _id: req.user._id });
+  } catch (error) {
+    console.error(error);
+  }
 };
