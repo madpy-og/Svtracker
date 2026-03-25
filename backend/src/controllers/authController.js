@@ -49,6 +49,19 @@ export const registerUser = async (req, res) => {
   }
 };
 
+export const logoutUser = async (req, res) => {
+  try {
+    res
+      .clearCookie("token", {
+        httpOnly: true,
+      })
+      .status(200)
+      .json({ message: "Logout successful" });
+  } catch (error) {
+    res.status(500).json({ message: "internal server error" });
+  }
+};
+
 export const checkAuth = async (req, res) => {
   try {
     res.status(200).json({ _id: req.user._id, message: "Authenticated" });

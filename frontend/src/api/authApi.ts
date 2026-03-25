@@ -50,3 +50,14 @@ export const login = async (user: User) => {
 
   return res.json();
 };
+
+export const logout = async () => {
+  const res = await fetch(`${BASE_URL}/auth/logout`, {
+    method: "POST",
+    credentials: "include",
+  });
+
+  if (!res.ok) {
+    console.log("Failed to logout");
+  }
+};

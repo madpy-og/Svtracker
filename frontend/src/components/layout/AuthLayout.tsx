@@ -17,9 +17,11 @@ const AuthLayout = ({ children }: Props) => {
             alt="bg-auth"
           />
           <div className="absolute inset-0 flex flex-col justify-between p-8 ">
-            <img src={logo} alt="logo" className="w-10.5 h-10.5" />
+            <img src={logo} alt="logo" className="w-8 h-8" />
             <div>
-              <p className="text-h4 font-thin text-cuswhite mb-2">Svtract is</p>
+              <p className="text-h4 font-thin text-cuswhite mb-2">
+                Svtracker is
+              </p>
               <p className="leading-10 text-h3 font-bold text-cuswhite">
                 Your digital solution for <br />
                 smarter financial <br /> decisions.

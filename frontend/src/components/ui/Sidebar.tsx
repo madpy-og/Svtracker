@@ -8,9 +8,21 @@ import {
   Settings,
   LogOut,
 } from "lucide-react";
-import { NavLink } from "react-router";
+import { logout } from "../../api/authApi";
+import { NavLink, useNavigate } from "react-router";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+
+      navigate("/login");
+    } catch (error) {
+      console.error(error);
+    }
+  };
   return (
     <aside className="flex flex-col gap-12.5 h-screen bg-cuswhite rounded-[0px_15px_15px_0px] p-[56px_32px_285px_32px]">
       <NavLink to="/" className="flex items-center gap-1.5 font-bold">
@@ -59,17 +71,13 @@ const Sidebar = () => {
           <Settings strokeWidth={2.5} className="w-5 h-5 " />
           <p className="text-bd font-semibold">Settings</p>
         </NavLink>
-        <NavLink
-          //TEMPORARY
-          to="/logout"
-          className={({ isActive }) =>
-            `flex items-center gap-1.5 w-full rounded-lg px-2.5 py-1.25 transition
-   ${isActive ? "text-cuswhite bg-danger" : "text-danger hover:text-cuswhite hover:bg-danger"}`
-          }
+        <button
+          onClick={handleLogout}
+          className="flex items-center gap-1.5 w-full rounded-lg px-2.5 py-1.25 transition text-danger hover:text-cuswhite hover:bg-danger cursor-pointer"
         >
           <LogOut strokeWidth={2.5} className="w-5 h-5" />
           <p className="text-bd font-semibold">Logout</p>
-        </NavLink>
+        </button>
       </div>
     </aside>
   );

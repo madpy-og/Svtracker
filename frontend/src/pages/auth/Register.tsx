@@ -59,8 +59,11 @@ const Register = () => {
   return (
     <AuthLayout>
       <div className="w-full h-full md:pr-5 flex flex-col items-center justify-center gap-7.5 md:gap-9.75">
-        <img src={logo} alt="logo" className="w-7.25 h-7.25" />
         <div className="flex flex-col items-center justify-center">
+          <div className="flex items-center gap-1.5 font-bold">
+            <img src={logo} alt="logo" className="w-4 h-4 md:w-5 md:h-5" />
+            <p className="text-bs-m md:text-bs text-cusblack">Svtracker</p>
+          </div>
           <h2 className="text-h2-m md:text-h2 text-cusblack font-bold">
             Create an Account
           </h2>
