@@ -24,7 +24,7 @@ const Sidebar = () => {
     }
   };
   return (
-    <aside className="flex flex-col gap-12.5 h-screen bg-cuswhite rounded-[0px_15px_15px_0px] p-[56px_32px_285px_32px]">
+    <aside className="flex flex-col gap-12.5 h-screen bg-cuswhite rounded-[0px_15px_15px_0px] p-[56px_32px_285px_32px] shadow-md">
       <NavLink to="/" className="flex items-center gap-1.5 font-bold">
         <img src={logo} alt="logo" className="w-7.25 h-7.25" />
         <p className="text-h6 text-cusblack">Svtracker</p>
