@@ -1,9 +1,9 @@
-import express from "express"
-import {getDashboardData} from "../controllers/dashboardController.js"
-import { verifyToken } from "../middlewares/authMiddleware.js"
+import express from "express";
+import { getDashboardData } from "../controllers/dashboardController.js";
+import { verifyToken } from "../middlewares/authMiddleware.js";
 
-const router = express.Router()
+const router = express.Router();
 
-router.get("/get", verifyToken, getDashboardData)
+router.get("/", verifyToken, getDashboardData);
 
-export default router
+export default router;

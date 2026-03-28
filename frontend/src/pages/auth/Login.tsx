@@ -2,24 +2,10 @@ import React from "react";
 import AuthLayout from "../../components/layout/AuthLayout";
 import { login } from "../../api/authApi";
 import { useForm } from "react-hook-form";
-import z from "zod";
+import { loginSchema, type LoginSchema } from "../../schemas/authSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useNavigate } from "react-router";
 import logo from "../../assets/images/svtracker-logo.png";
-
-const loginSchema = z.object({
-  email: z
-    .string()
-    .nonempty("email is required")
-    .email("email format not valid")
-    .min(5, "email must have at least 5 characters"),
-  password: z
-    .string()
-    .nonempty("password is required")
-    .min(3, "password must have at least 3 characters"),
-});
-
-type LoginSchema = z.infer<typeof loginSchema>;
 
 const Login = () => {
   const navigate = useNavigate();

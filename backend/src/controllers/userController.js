@@ -31,7 +31,7 @@ export const updateProfileImage = async (req, res) => {
       });
     }
 
-    await User.findByIdAndUpdate(
+    const updatedUser = await User.findByIdAndUpdate(
       req.user._id,
       {
         profileImage: {

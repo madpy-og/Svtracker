@@ -13,39 +13,17 @@ const App = () => {
   return (
     <div>
       <Routes>
-        <Route element={<DashboardLayout />}>
-          <Route
-            path="/"
-            element={
-              <ProtectedRoute>
-                <Home />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/income"
-            element={
-              <ProtectedRoute>
-                <Income />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/expense"
-            element={
-              <ProtectedRoute>
-                <Expense />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/setting"
-            element={
-              <ProtectedRoute>
-                <Settings />
-              </ProtectedRoute>
-            }
-          />
+        <Route
+          element={
+            <ProtectedRoute>
+              <DashboardLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route path="/" element={<Home />} />
+          <Route path="/income" element={<Income />} />
+          <Route path="/expense" element={<Expense />} />
+          <Route path="/setting" element={<Settings />} />
         </Route>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

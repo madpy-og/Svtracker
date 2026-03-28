@@ -1,37 +1,13 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { registerSchema, type RegisterSchema } from "../../schemas/authSchema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import AuthLayout from "../../components/layout/AuthLayout";
 import { Link, useNavigate } from "react-router";
 import { register } from "../../api/authApi";
 import logo from "../../assets/images/svtracker-logo.png";
 
-const registerSchema = z
-  .object({
-    fullname: z
-      .string()
-      .nonempty("fullname is required")
-      .min(3, "fullname must have at least 3 characters"),
-    email: z
-      .string()
-      .nonempty("email is required")
-      .min(5, "email must have at least 5 characters"),
-    password: z
-      .string()
-      .nonempty("password is required")
-      .min(3, "password must have at least 3 characters"),
-    confirmPassword: z
-      .string()
-      .nonempty("please confirm your password")
-      .min(3, "confirm password must have at least 3 characters"),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "confirm password does not match",
-    path: ["confirmPassword"],
-  });
 
-type RegisterSchema = z.infer<typeof registerSchema>;
 
 const Register = () => {
   const navigate = useNavigate();

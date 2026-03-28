@@ -1,22 +1,48 @@
-import React from "react";
-import DashboardLayout from "../../components/layout/DashboardLayout";
+import React, { useEffect, useState } from "react";
+import {
+  dashboardSchema,
+  type DashboardSchema,
+} from "../../schemas/dashboardSchema";
 import Card from "../../components/ui/Card";
+import { getDashboardData } from "../../api/dashboardApi";
 
 const Home = () => {
+  const [dashboard, setDashboard] = useState<DashboardSchema | null>(null);
+
+  useEffect(() => {
+    const fetchDashboardData = async () => {
+      const data = await getDashboardData();
+
+      if (!data) {
+        console.log("Something went wrong");
+      }
+
+      setDashboard(data);
+    };
+
+    fetchDashboardData();
+  }, []);
+
   return (
     <div className="flex flex-col gap-3.75">
       <div className="grid grid-cols-4 gap-2.5">
         <Card className="h-32.5">
-          <p className="text-bd text-cusblack font-semibold">Income Total</p>
-          <p className="text-h5 text-cusblack font-bold">200.000</p>
+          <p className="text-bd text-cusblack font-semibold">Total Income</p>
+          <p className="text-h5 text-cusblack font-bold">
+            {dashboard?.totalIncomes}
+          </p>
         </Card>
         <Card className="h-32.5">
           <p className="text-bd text-cusblack font-semibold">Expense Total</p>
-          <p className="text-h5 text-cusblack font-bold">10.000</p>
+          <p className="text-h5 text-cusblack font-bold">
+            {dashboard?.totalExpenses}
+          </p>
         </Card>
         <Card className="h-32.5">
           <p className="text-bd text-cusblack font-semibold">My Wallet</p>
-          <p className="text-h5 text-cusblack font-bold">3.000.000</p>
+          <p className="text-h5 text-cusblack font-bold">
+            {dashboard?.totalBalance}
+          </p>
         </Card>
         <Card className="h-32.5">
           <p className="text-bd text-cusblack font-semibold">Percentage</p>
