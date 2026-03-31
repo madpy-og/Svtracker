@@ -51,7 +51,7 @@ html {
 }
 
 .table-header {
-  @apply text-left text-bs uppercase p-2;
+  @apply text-left text-bs p-2;
 }
 
 .table-body {

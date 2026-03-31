@@ -6,6 +6,7 @@ import {
 import Card from "../../components/ui/Card";
 import { getDashboard } from "../../api/dashboardApi";
 import Table from "../../components/ui/Table";
+import { formatRupiah } from "../../utils/formatRupiah";
 
 const Home = () => {
   const [dashboard, setDashboard] = useState<DashboardSchema | null>(null);
@@ -30,19 +31,19 @@ const Home = () => {
         <Card className="h-32.5">
           <p className="text-bd text-cusblack font-semibold">Total Income</p>
           <p className="text-h5 text-cusblack font-bold">
-            {dashboard?.totalIncomes}
+            {formatRupiah(dashboard?.totalIncomes)}
           </p>
         </Card>
         <Card className="h-32.5">
           <p className="text-bd text-cusblack font-semibold">Expense Total</p>
           <p className="text-h5 text-cusblack font-bold">
-            {dashboard?.totalExpenses}
+            {formatRupiah(dashboard?.totalExpenses)}
           </p>
         </Card>
         <Card className="h-32.5">
           <p className="text-bd text-cusblack font-semibold">My Wallet</p>
           <p className="text-h5 text-cusblack font-bold">
-            {dashboard?.totalBalance}
+            {formatRupiah(dashboard?.totalBalance)}
           </p>
         </Card>
         <Card className="h-32.5">
@@ -55,7 +56,7 @@ const Home = () => {
           <p className="text-bd text-cusblack font-semibold">
             Recent Incomes/Expenses
           </p>
-          <div className="overflow-x-auto">
+          <div className="overflow-x-auto p-2">
             <Table transactions={dashboard?.recentTransactions ?? []} />
           </div>
         </Card>
