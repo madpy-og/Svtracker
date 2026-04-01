@@ -5,8 +5,8 @@ import {
 } from "../../schemas/dashboardSchema";
 import Card from "../../components/ui/Card";
 import { getDashboard } from "../../api/dashboardApi";
-import Table from "../../components/ui/Table";
 import { formatRupiah } from "../../utils/formatRupiah";
+import RecentTransactions from "../../components/ui/RecentTransactions";
 
 const Home = () => {
   const [dashboard, setDashboard] = useState<DashboardSchema | null>(null);
@@ -52,12 +52,14 @@ const Home = () => {
         </Card>
       </div>
       <div className="grid grid-cols-4 grid-row-2 gap-2.5">
-        <Card className="col-span-3 row-span-2 h-105">
+        <Card className="col-span-2 row-span-2 h-105">
           <p className="text-bd text-cusblack font-semibold">
             Recent Incomes/Expenses
           </p>
-          <div className="overflow-x-auto p-2">
-            <Table transactions={dashboard?.recentTransactions ?? []} />
+          <div className="flex flex-col gap-2 p-2">
+            <RecentTransactions
+              transactions={dashboard?.recentTransactions ?? []}
+            />
           </div>
         </Card>
         <Card className="col-span-1 row-span-2">

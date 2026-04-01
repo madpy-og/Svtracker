@@ -51,9 +51,9 @@ html {
 }
 
 .table-header {
-  @apply text-left text-bs p-2;
+  @apply text-left text-bs py-2 px-4;
 }
 
 .table-body {
-  @apply text-left text-bs p-2;
+  @apply text-left text-bs py-2 px-4;
 }
