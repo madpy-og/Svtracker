@@ -13,14 +13,12 @@ const Income = () => {
         </Card>
       </div>
       <div className="grid grid-cols-1 h-100 gap-2.5">
-        <Card>
+        <Card className="flex flex-col gap-2">
           <p className="text-bd-m md:text-bd text-cusblack font-semibold">
-            Income History
+            Income Source
           </p>
-          <div className="">
-            <div className="table-wrapper">
-              <IncomeList datas={income} />
-            </div>
+          <div className="grid grid-cols-1 md:grid md:grid-cols-2 gap-2">
+            <IncomeList datas={income} />
           </div>
         </Card>
       </div>

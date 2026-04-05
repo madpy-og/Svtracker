@@ -16,11 +16,6 @@ export const getDashboardData = async (req, res) => {
       },
     ]);
 
-    console.log("totalIncome", {
-      totalIncome,
-      userId: isValidObjectId(userId),
-    });
-
     const totalExpense = await Expense.aggregate([
       {
         $match: { userId: userObjectId },

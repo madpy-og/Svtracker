@@ -14,11 +14,11 @@ const RecentTransactions = ({ transactions }: Props) => {
       {transactions.map((transaction) => {
         return (
           <div className="w-full flex justify-between items-center ">
-            <div className="flex gap-1 items-center">
+            <div className="flex gap-2 items-center">
               <img
                 src={transaction.icon}
                 alt="transaction-icon"
-                className="w-6 h-6 rounded-full"
+                className="w-8 h-8 rounded-full"
               />
               <div className="flex flex-col items-start">
                 <p className="text-bs-m md:text-bs text-cusblack font-semibold capitalize">

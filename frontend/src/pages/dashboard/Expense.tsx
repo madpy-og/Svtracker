@@ -14,11 +14,11 @@ const Expense = () => {
         </Card>
       </div>
       <div className="grid grid-cols-1 h-100 gap-2.5">
-        <Card>
+        <Card className="flex flex-col gap-2">
           <p className="text-bd-m md:text-bd text-cusblack font-semibold">
-            Expense History
+            Expense Category
           </p>
-          <div className="overflow-y-auto">
+          <div className="grid grid-cols-1 md:grid md:grid-cols-2 gap-2">
             <ExpenseList datas={expense} />
           </div>
         </Card>

@@ -13,12 +13,12 @@ const ExpenseList = ({ datas }: Props) => {
     <>
       {datas.map((data) => {
         return (
-          <div className="w-full flex justify-between items-center ">
-            <div className="flex gap-1 items-center">
+          <div className="w-full flex justify-between items-center p-2 rounded-md hover:bg-cusgrey ">
+            <div className="flex gap-2 items-center">
               <img
                 src={data.icon}
                 alt="expense-icon"
-                className="w-6 h-6 rounded-full"
+                className="w-8 h-8 rounded-full"
               />
               <div className="flex flex-col items-start">
                 <p className="text-bs-m md:text-bs text-cusblack font-semibold capitalize">
