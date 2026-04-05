@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { getAllExpense } from "../api/expenseApi";
 import type { ExpenseSchema } from "../schemas/expenseSchema";
 
-export const useExpense = async () => {
-  const [expense, setExpense] = useState<ExpenseSchema | null>(null);
+export const useExpense = () => {
+  const [expense, setExpense] = useState<ExpenseSchema[]>([]);
 
   useEffect(() => {
     const fetchExpenseData = async () => {
@@ -12,6 +12,7 @@ export const useExpense = async () => {
 
         if (!data) {
           console.log("Something went wrong");
+          return;
         }
 
         setExpense(data);

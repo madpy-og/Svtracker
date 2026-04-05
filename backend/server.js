@@ -29,9 +29,9 @@ connectDB();
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/cloudinary", cloudinaryRoutes);
 app.use("/api/v1/dashboard", dashboardRoutes);
-app.use("/api/v1/expense", expenseRoutes);
-app.use("/api/v1/income", incomeRoutes);
-app.use("/api/v1/user", userRoutes);
+app.use("/api/v1/expenses", expenseRoutes);
+app.use("/api/v1/incomes", incomeRoutes);
+app.use("/api/v1/users", userRoutes);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server Running on Port ${PORT}`));

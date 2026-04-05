@@ -47,7 +47,7 @@ const RecentTransactions = ({ transactions }: Props) => {
                   <p className="text-capt-m md:text-capt font-semibold">
                     - {formatRupiah(transaction.amount)}
                   </p>
-                  <TrendingUp
+                  <TrendingDown
                     strokeWidth={2}
                     className="w-3 h-3 md:w-4 md:h-4"
                   />

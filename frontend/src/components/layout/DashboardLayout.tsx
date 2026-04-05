@@ -43,10 +43,10 @@ const DashboardLayout = () => {
     <div className="flex flex-col md:grid md:grid-cols-[240px_1fr] w-screen h-screen bg-cusgrey">
       <Navbar />
       <Sidebar />
-      <section className="flex-1 overflow-y-auto pb-3.75 pt-16 md:py-6.5 px-4 md:px-8 no-scrollbar">
+      <section className="flex-1 overflow-y-auto pb-3.75 pt-12 md:py-6.5 px-4 md:px-8">
         <div className="flex flex-col gap-3.75">
           <div className="flex justify-between items-center">
-            <h4 className="text-cusblack text-h4-m md:text-h4 font-bold">
+            <h4 className="text-cusblack text-h4-m md:text-h4 font-bold pt-4">
               {pageName}
             </h4>
             <Profile user={profile} className="hidden md:flex" />

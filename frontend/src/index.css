@@ -50,12 +50,32 @@ html {
   @apply w-full h-7 md:h-9 px-3.75 text-bs-m md:text-bs font-semibold bg-cuswhite border-2 border-cusdarkgrey rounded-md outline-none focus:border-none focus:ring-2 focus:ring-cusorange text-cusblack placeholder:text-bs-m md:placeholder:text-bs placeholder:font-semibold placeholder:text-cusdarkgrey;
 }
 
-.table-header {
-  @apply text-left text-bs py-2 px-4;
+.table-wrapper {
+  @apply relative overflow-x-auto;
 }
 
-.table-body {
-  @apply text-left text-bs py-2 px-4;
+.table {
+  @apply min-w-full;
+}
+
+.table-thead {
+  @apply sticky top-0 z-10;
+}
+
+.table-tbody {
+  @apply divide-y divide-cusgrey;
+}
+
+.table-tr {
+  @apply hover:bg-cusgrey;
+}
+
+.table-th {
+  @apply capitalize text-left text-cusblack text-bs-m md:text-bs px-4 py-2 whitespace-nowrap;
+}
+
+.table-td {
+  @apply capitalize text-left text-cusblack text-bs-m md:text-bs px-4 py-2 whitespace-nowrap;
 }
 
 .no-scrollbar::-webkit-scrollbar {

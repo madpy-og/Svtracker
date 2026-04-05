@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { getAllIncome } from "../api/incomeApi";
 import type { IncomeSchema } from "../schemas/incomeSchema";
 
-export const useIncome = async () => {
-  const [income, setIncome] = useState<IncomeSchema | null>(null);
+export const useIncome = () => {
+  const [income, setIncome] = useState<IncomeSchema[]>([]);
 
   useEffect(() => {
     const fetchIncomeData = async () => {
@@ -12,6 +12,7 @@ export const useIncome = async () => {
 
         if (!data) {
           console.log("Something went wrong");
+          return;
         }
 
         setIncome(data);

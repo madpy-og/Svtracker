@@ -11,6 +11,7 @@ export const useDashboard = () => {
 
       if (!data) {
         console.log("Something went wrong");
+        return;
       }
 
       setDashboard(data);

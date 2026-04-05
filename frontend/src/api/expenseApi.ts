@@ -9,7 +9,7 @@ type Expense = {
 
 export const getAllExpense = async () => {
   try {
-    const res = await fetch(`${BASE_URL}/expense`, {
+    const res = await fetch(`${BASE_URL}/expenses`, {
       method: "GET",
       credentials: "include",
     });
@@ -20,7 +20,7 @@ export const getAllExpense = async () => {
 
     const data = await res.json();
 
-    return data;
+    return data.expense;
   } catch (error) {
     console.log("Internal server error");
   }
@@ -35,7 +35,7 @@ export const addExpense = async ({ icon, category, amount, date }: Expense) => {
       date,
     };
 
-    const res = await fetch(`${BASE_URL}/expense`, {
+    const res = await fetch(`${BASE_URL}/expenses`, {
       method: "POST",
       credentials: "include",
 
@@ -58,7 +58,7 @@ export const addExpense = async ({ icon, category, amount, date }: Expense) => {
 
 export const deleteExpense = async (id: string) => {
   try {
-    const res = await fetch(`${BASE_URL}/expense/${id}`, {
+    const res = await fetch(`${BASE_URL}/expenses/${id}`, {
       method: "DELETE",
       credentials: "include",
     });

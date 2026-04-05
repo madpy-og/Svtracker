@@ -1,9 +1,9 @@
 import React from "react";
 import Card from "../../components/ui/Card";
 import { useIncome } from "../../hooks/useIncome";
-
+import IncomeList from "../../components/ui/IncomeList";
 const Income = () => {
-  // const { income } = useIncome();
+  const { income } = useIncome();
 
   return (
     <div className="flex flex-col gap-3.75">
@@ -17,7 +17,11 @@ const Income = () => {
           <p className="text-bd-m md:text-bd text-cusblack font-semibold">
             Income History
           </p>
-          <div className="flex flex-col gap-3 p-2 mt-2 md:-4"></div>
+          <div className="">
+            <div className="table-wrapper">
+              <IncomeList datas={income} />
+            </div>
+          </div>
         </Card>
       </div>
     </div>

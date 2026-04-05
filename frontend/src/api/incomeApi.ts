@@ -9,7 +9,7 @@ type Income = {
 
 export const getAllIncome = async () => {
   try {
-    const res = await fetch(`${BASE_URL}/income`, {
+    const res = await fetch(`${BASE_URL}/incomes`, {
       method: "GET",
       credentials: "include",
     });
@@ -20,7 +20,7 @@ export const getAllIncome = async () => {
 
     const data = await res.json();
 
-    return data;
+    return data.income;
   } catch (error) {
     console.log("Internal server error");
   }
@@ -35,7 +35,7 @@ export const addIncome = async ({ icon, source, amount, date }: Income) => {
       date,
     };
 
-    const res = await fetch(`${BASE_URL}/income`, {
+    const res = await fetch(`${BASE_URL}/incomes`, {
       method: "POST",
       credentials: "include",
 
@@ -58,7 +58,7 @@ export const addIncome = async ({ icon, source, amount, date }: Income) => {
 
 export const deleteIncome = async (id: string) => {
   try {
-    const res = await fetch(`${BASE_URL}/income/${id}`, {
+    const res = await fetch(`${BASE_URL}/incomes/${id}`, {
       method: "DELETE",
       credentials: "include",
     });
