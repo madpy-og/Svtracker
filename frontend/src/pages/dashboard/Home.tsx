@@ -42,11 +42,11 @@ const Home = () => {
         </Card>
       </div>
       <div className="grid grid-cols-1 min-[950px]:grid-cols-4 grid-row-2 gap-2.5">
-        <Card className="col-span-2 row-span-2 h-105">
+        <Card className="flex flex-col md:col-span-2 md:row-span-2 h-105 gap-2 overflow-hidden">
           <p className="text-bd-m md:text-bd text-cusblack font-semibold">
-            Recent Incomes/Expenses
+            Recent Transactions
           </p>
-          <div className="flex flex-col gap-3 p-2 mt-2 md:-4">
+          <div className="grid grid-cols-1 gap-1 md:gap-2">
             <RecentTransactions
               transactions={dashboard?.recentTransactions ?? []}
             />

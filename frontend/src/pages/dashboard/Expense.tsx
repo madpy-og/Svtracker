@@ -18,7 +18,7 @@ const Expense = () => {
           <p className="text-bd-m md:text-bd text-cusblack font-semibold">
             Expense Category
           </p>
-          <div className="grid grid-cols-1 md:grid md:grid-cols-2 gap-2">
+          <div className="grid grid-cols-1 md:grid md:grid-cols-2 gap-1 md:gap-2">
             <ExpenseList datas={expense} />
           </div>
         </Card>

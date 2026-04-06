@@ -13,9 +13,13 @@ type Props = {
 
 const List = ({ icon, source, category, date, amount }: Props) => {
   return (
-    <div className="w-full flex justify-between items-center p-2 rounded-md hover:bg-cusgrey">
+    <div className="w-full flex justify-between items-center p-1 md:p-2 rounded-md hover:bg-cusgrey">
       <div className="flex gap-2 items-center">
-        <img src={icon} alt="income-icon" className="w-8 h-8 rounded-full" />
+        <img
+          src={icon}
+          alt="income-icon"
+          className="w-6 h-6 md:w-8 md:h-8 rounded-full"
+        />
         <div className="flex flex-col items-start">
           <p className="text-bs-m md:text-bs text-cusblack font-semibold capitalize">
             {source ? source : category}
