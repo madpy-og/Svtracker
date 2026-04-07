@@ -1,5 +1,3 @@
-const BASE_URL = "http://localhost:3000/api/v1";
-
 type Income = {
   icon: string;
   source: string;
@@ -9,7 +7,7 @@ type Income = {
 
 export const getAllIncome = async () => {
   try {
-    const res = await fetch(`${BASE_URL}/incomes`, {
+    const res = await fetch(`${import.meta.env.BASE_URL}/api/v1/incomes`, {
       method: "GET",
       credentials: "include",
     });
@@ -35,7 +33,7 @@ export const addIncome = async ({ icon, source, amount, date }: Income) => {
       date,
     };
 
-    const res = await fetch(`${BASE_URL}/incomes`, {
+    const res = await fetch(`${import.meta.env.BASE_URL}/api/v1/incomes`, {
       method: "POST",
       credentials: "include",
 
@@ -58,10 +56,13 @@ export const addIncome = async ({ icon, source, amount, date }: Income) => {
 
 export const deleteIncome = async (id: string) => {
   try {
-    const res = await fetch(`${BASE_URL}/incomes/${id}`, {
-      method: "DELETE",
-      credentials: "include",
-    });
+    const res = await fetch(
+      `${import.meta.env.BASE_URL}/api/v1/incomes/${id}`,
+      {
+        method: "DELETE",
+        credentials: "include",
+      },
+    );
 
     if (!res.ok) {
       console.log("Failed to delete income data");

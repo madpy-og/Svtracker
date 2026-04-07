@@ -1,8 +1,6 @@
-const BASE_URL = "http://localhost:3000/api/v1";
-
 export const getDashboard = async () => {
   try {
-    const res = await fetch(`${BASE_URL}/dashboard`, {
+    const res = await fetch(`${import.meta.env.BASE_URL}/api/v1/dashboard`, {
       method: "GET",
       credentials: "include",
     });

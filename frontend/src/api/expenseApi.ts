@@ -1,5 +1,3 @@
-const BASE_URL = "http://localhost:3000/api/v1";
-
 type Expense = {
   icon: string;
   category: string;
@@ -9,7 +7,7 @@ type Expense = {
 
 export const getAllExpense = async () => {
   try {
-    const res = await fetch(`${BASE_URL}/expenses`, {
+    const res = await fetch(`${import.meta.env.BASE_URL}/api/v1/expenses`, {
       method: "GET",
       credentials: "include",
     });
@@ -35,7 +33,7 @@ export const addExpense = async ({ icon, category, amount, date }: Expense) => {
       date,
     };
 
-    const res = await fetch(`${BASE_URL}/expenses`, {
+    const res = await fetch(`${import.meta.env.BASE_URL}/api/v1/expenses`, {
       method: "POST",
       credentials: "include",
 
@@ -58,10 +56,13 @@ export const addExpense = async ({ icon, category, amount, date }: Expense) => {
 
 export const deleteExpense = async (id: string) => {
   try {
-    const res = await fetch(`${BASE_URL}/expenses/${id}`, {
-      method: "DELETE",
-      credentials: "include",
-    });
+    const res = await fetch(
+      `${import.meta.env.BASE_URL}/api/v1/expenses/${id}`,
+      {
+        method: "DELETE",
+        credentials: "include",
+      },
+    );
 
     if (!res.ok) {
       console.log("Failed to delete expense data");
