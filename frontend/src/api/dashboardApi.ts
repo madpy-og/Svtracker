@@ -1,9 +1,12 @@
 export const getDashboard = async () => {
   try {
-    const res = await fetch(`${import.meta.env.BASE_URL}/api/v1/dashboard`, {
-      method: "GET",
-      credentials: "include",
-    });
+    const res = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/v1/dashboard`,
+      {
+        method: "GET",
+        credentials: "include",
+      },
+    );
 
     if (!res.ok) {
       console.log("Failed to get dashboard data");

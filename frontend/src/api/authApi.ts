@@ -6,7 +6,7 @@ type User = {
 
 export const checkAuth = async () => {
   try {
-    const res = await fetch(`${import.meta.env.BASE_URL}/api/v1/auth/me`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/auth/me`, {
       credentials: "include",
     });
 
@@ -17,13 +17,16 @@ export const checkAuth = async () => {
 };
 
 export const register = async (user: User) => {
-  const res = await fetch(`${import.meta.env.BASE_URL}/api/v1/auth/register`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
+  const res = await fetch(
+    `${import.meta.env.VITE_API_URL}/api/v1/auth/register`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(user),
     },
-    body: JSON.stringify(user),
-  });
+  );
 
   if (!res.ok) {
     console.log("Failed to register account");
@@ -33,7 +36,7 @@ export const register = async (user: User) => {
 };
 
 export const login = async (user: User) => {
-  const res = await fetch(`${import.meta.env.BASE_URL}/api/v1/auth/login`, {
+  const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -50,10 +53,13 @@ export const login = async (user: User) => {
 };
 
 export const logout = async () => {
-  const res = await fetch(`${import.meta.env.BASE_URL}/api/v1/auth/logout`, {
-    method: "POST",
-    credentials: "include",
-  });
+  const res = await fetch(
+    `${import.meta.env.VITE_API_URL}/api/v1/auth/logout`,
+    {
+      method: "POST",
+      credentials: "include",
+    },
+  );
 
   if (!res.ok) {
     console.log("Failed to logout");

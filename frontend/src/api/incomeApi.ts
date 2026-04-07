@@ -7,7 +7,7 @@ type Income = {
 
 export const getAllIncome = async () => {
   try {
-    const res = await fetch(`${import.meta.env.BASE_URL}/api/v1/incomes`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/incomes`, {
       method: "GET",
       credentials: "include",
     });
@@ -33,7 +33,7 @@ export const addIncome = async ({ icon, source, amount, date }: Income) => {
       date,
     };
 
-    const res = await fetch(`${import.meta.env.BASE_URL}/api/v1/incomes`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/incomes`, {
       method: "POST",
       credentials: "include",
 
@@ -57,7 +57,7 @@ export const addIncome = async ({ icon, source, amount, date }: Income) => {
 export const deleteIncome = async (id: string) => {
   try {
     const res = await fetch(
-      `${import.meta.env.BASE_URL}/api/v1/incomes/${id}`,
+      `${import.meta.env.VITE_API_URL}/api/v1/incomes/${id}`,
       {
         method: "DELETE",
         credentials: "include",

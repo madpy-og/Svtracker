@@ -7,7 +7,7 @@ type Expense = {
 
 export const getAllExpense = async () => {
   try {
-    const res = await fetch(`${import.meta.env.BASE_URL}/api/v1/expenses`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/expenses`, {
       method: "GET",
       credentials: "include",
     });
@@ -33,7 +33,7 @@ export const addExpense = async ({ icon, category, amount, date }: Expense) => {
       date,
     };
 
-    const res = await fetch(`${import.meta.env.BASE_URL}/api/v1/expenses`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/expenses`, {
       method: "POST",
       credentials: "include",
 
@@ -57,7 +57,7 @@ export const addExpense = async ({ icon, category, amount, date }: Expense) => {
 export const deleteExpense = async (id: string) => {
   try {
     const res = await fetch(
-      `${import.meta.env.BASE_URL}/api/v1/expenses/${id}`,
+      `${import.meta.env.VITE_API_URL}/api/v1/expenses/${id}`,
       {
         method: "DELETE",
         credentials: "include",
