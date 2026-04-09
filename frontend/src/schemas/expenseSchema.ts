@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { optional, z } from "zod";
 
 export const expenseSchema = z.object({
   _id: z.string().optional(),
@@ -7,8 +7,8 @@ export const expenseSchema = z.object({
   category: z.string(),
   amount: z.number(),
   date: z.string(),
-  createdAt: z.string(),
-  updatedAt: z.string(),
+  createdAt: z.string().optional(),
+  updatedAt: z.string().optional(),
 });
 
 export type ExpenseSchema = z.infer<typeof expenseSchema>;

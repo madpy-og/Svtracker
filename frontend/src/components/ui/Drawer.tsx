@@ -32,7 +32,7 @@ const Drawer = ({ user, openDrawer, setOpenDrawer }: Props) => {
   };
   return (
     <aside
-      className={`flex md:hidden flex-col fixed z-100 left-0 top-0 h-screen w-[240px] gap-5 rounded-[0px_15px_15px_0px] p-[32px_32px_285px_32px] bg-cuswhite shadow-md transform transition-transform duration-300 ease-in-out
+      className={`flex md:hidden flex-col fixed z-95 left-0 top-0 h-screen w-[240px] gap-5 rounded-[0px_15px_15px_0px] p-[32px_32px_285px_32px] bg-cuswhite shadow-md transform transition-transform duration-300 ease-in-out
         ${openDrawer ? "translate-x-0" : "-translate-x-full"}`}
     >
       <Profile user={user} variant="vertical" />

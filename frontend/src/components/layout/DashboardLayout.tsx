@@ -59,6 +59,14 @@ const DashboardLayout = () => {
       opacity-100"
         />
       )}
+      {openModal && (
+        <div
+          onClick={() => {
+            setOpenModal(null);
+          }}
+          className="fixed inset-0 z-90 bg-black/40 transition-opacity duration-30 opacity-100"
+        />
+      )}
       {openModal === "addIncome" && <IncomeModal />}
       {openModal === "addExpense" && <ExpenseModal />}
 
