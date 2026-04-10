@@ -1,5 +1,5 @@
 import React from "react";
-import type { UserSchema } from "../../schemas/userSchema";
+import type { UserSchema } from "../../../schemas/userSchema";
 
 type Props = {
   user: UserSchema | null;

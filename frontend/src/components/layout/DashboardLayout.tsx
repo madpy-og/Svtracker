@@ -1,14 +1,14 @@
 import React, { useEffect, type ReactNode } from "react";
 import { useState } from "react";
-import Sidebar from "../ui/Sidebar";
+import Sidebar from "../ui/main/Sidebar";
 import { Outlet, useLocation } from "react-router";
-import Profile from "../ui/Profile";
+import Profile from "../ui/main/Profile";
 import { userSchema, type UserSchema } from "../../schemas/userSchema";
 import { getUserById } from "../../api/userApi";
-import Navbar from "../ui/Navbar";
-import Drawer from "../ui/Drawer";
-import IncomeModal from "../ui/IncomeModal";
-import ExpenseModal from "../ui/ExpenseModal";
+import Navbar from "../ui/main/Navbar";
+import Drawer from "../ui/main/Drawer";
+import IncomeModal from "../ui/modal/IncomeModal";
+import ExpenseModal from "../ui/modal/ExpenseModal";
 
 const PageTitles: Record<string, string> = {
   "/": "Analytics",
@@ -59,17 +59,9 @@ const DashboardLayout = () => {
       opacity-100"
         />
       )}
-      {openModal && (
-        <div
-          onClick={() => {
-            setOpenModal(null);
-          }}
-          className="fixed inset-0 z-90 bg-black/40 transition-opacity duration-30 opacity-100"
-        />
-      )}
-      {openModal === "addIncome" && <IncomeModal />}
-      {openModal === "addExpense" && <ExpenseModal />}
 
+      <IncomeModal openModal={openModal} setOpenModal={setOpenModal} />
+      <ExpenseModal openModal={openModal} setOpenModal={setOpenModal} />
       <Drawer
         user={profile}
         openDrawer={openDrawer}

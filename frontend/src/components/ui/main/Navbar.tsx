@@ -1,5 +1,5 @@
 import { NavLink } from "react-router";
-import logo from "../../assets/images/svtracker-logo.png";
+import logo from "../../../assets/images/svtracker-logo.png";
 import { Menu } from "lucide-react";
 
 type Props = {

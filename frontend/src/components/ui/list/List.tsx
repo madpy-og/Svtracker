@@ -1,6 +1,6 @@
 import React from "react";
-import { formatDate } from "../../utils/formatDate";
-import { formatRupiah } from "../../utils/formatRupiah";
+import { formatDate } from "../../../utils/formatDate";
+import { formatRupiah } from "../../../utils/formatRupiah";
 import { TrendingDown, TrendingUp } from "lucide-react";
 
 type Props = {

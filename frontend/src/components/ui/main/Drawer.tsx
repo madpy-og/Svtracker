@@ -7,10 +7,9 @@ import {
   Settings,
 } from "lucide-react";
 import { NavLink, useNavigate } from "react-router";
-import { logout } from "../../api/authApi";
-import logo from "../../assets/images/svtracker-logo.png";
+import { logout } from "../../../api/authApi";
 import Profile from "./Profile";
-import type { UserSchema } from "../../schemas/userSchema";
+import type { UserSchema } from "../../../schemas/userSchema";
 
 type Props = {
   user: UserSchema | null;

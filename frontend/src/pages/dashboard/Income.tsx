@@ -1,7 +1,7 @@
 import React from "react";
 import Card from "../../components/ui/Card";
 import { useIncome } from "../../hooks/useIncome";
-import IncomeList from "../../components/ui/IncomeList";
+import IncomeList from "../../components/ui/list/IncomeList";
 import Button from "../../components/ui/Button";
 
 const Income = () => {

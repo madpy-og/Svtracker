@@ -1,7 +1,7 @@
 import React from "react";
-import type { IncomeSchema } from "../../schemas/incomeSchema";
-import { formatDate } from "../../utils/formatDate";
-import { formatRupiah } from "../../utils/formatRupiah";
+import type { IncomeSchema } from "../../../schemas/incomeSchema";
+import { formatDate } from "../../../utils/formatDate";
+import { formatRupiah } from "../../../utils/formatRupiah";
 import { TrendingUp } from "lucide-react";
 import List from "./List";
 
@@ -15,6 +15,7 @@ const IncomeList = ({ datas }: Props) => {
       {datas.map((data) => {
         return (
           <List
+            key={data._id}
             icon={data.icon}
             source={data.source}
             date={data.date}

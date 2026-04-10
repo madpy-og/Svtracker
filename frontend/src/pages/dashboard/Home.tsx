@@ -1,6 +1,6 @@
 import Card from "../../components/ui/Card";
 import { formatRupiah } from "../../utils/formatRupiah";
-import RecentTransactions from "../../components/ui/RecentTransactions";
+import RecentTransactions from "../../components/ui/list/RecentTransactions";
 import { useDashboard } from "../../hooks/useDashboard";
 
 const Home = () => {

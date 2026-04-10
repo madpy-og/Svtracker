@@ -5,10 +5,11 @@ export const incomeSchema = z.object({
   userId: z.string().optional(),
   icon: z.string(),
   source: z.string(),
-  amount: z.number(),
+  amount: z.string().transform((val) => Number(val)),
   date: z.string(),
-  createdAt: z.string(),
-  updatedAt: z.string(),
+  createdAt: z.string().optional(),
+  updatedAt: z.string().optional(),
 });
 
 export type IncomeSchema = z.infer<typeof incomeSchema>;
+export type IncomeSchemaInput = z.input<typeof incomeSchema>;

@@ -1,7 +1,7 @@
 import React from "react";
 import Card from "../../components/ui/Card";
 import { useExpense } from "../../hooks/useExpense";
-import ExpenseList from "../../components/ui/ExpenseList";
+import ExpenseList from "../../components/ui/list/ExpenseList";
 import Button from "../../components/ui/Button";
 
 const Expense = () => {

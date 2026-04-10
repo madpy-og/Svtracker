@@ -1,15 +1,14 @@
 import React, { type ReactNode } from "react";
 import { useState } from "react";
-import logo from "../../assets/images/svtracker-logo.png";
+import logo from "../../../assets/images/svtracker-logo.png";
 import {
   ChartColumnIncreasing,
-  TrendingUp,
   Settings,
   LogOut,
   HandCoins,
   PiggyBank,
 } from "lucide-react";
-import { logout } from "../../api/authApi";
+import { logout } from "../../../api/authApi";
 import { NavLink, useNavigate } from "react-router";
 
 const Sidebar = () => {
