@@ -3,14 +3,13 @@ import { useState } from "react";
 import Sidebar from "../ui/main/Sidebar";
 import { Outlet, useLocation } from "react-router";
 import Profile from "../ui/main/Profile";
-import { userSchema, type UserSchema } from "../../schemas/userSchema";
-import { getUserById } from "../../api/userApi";
 import Navbar from "../ui/main/Navbar";
 import Drawer from "../ui/main/Drawer";
 import IncomeModal from "../ui/modal/IncomeModal";
 import ExpenseModal from "../ui/modal/ExpenseModal";
 import { useIncome } from "../../hooks/useIncome";
 import { useExpense } from "../../hooks/useExpense";
+import { useUser } from "../../hooks/useUser";
 
 const PageTitles: Record<string, string> = {
   "/": "Analytics",
@@ -20,13 +19,13 @@ const PageTitles: Record<string, string> = {
 };
 
 const DashboardLayout = () => {
-  const [profile, setProfile] = useState<UserSchema | null>(null);
   const [pageName, setPageName] = useState<string>("");
   const [openDrawer, setOpenDrawer] = useState<boolean>(false);
   const [openModal, setOpenModal] = useState<string | null>(null);
 
   const { income, refetchIncomeData } = useIncome();
   const { expense, refetchExpenseData } = useExpense();
+  const { profile, refetchUserData } = useUser();
 
   const location = useLocation();
 
@@ -34,20 +33,6 @@ const DashboardLayout = () => {
     const title = PageTitles[location.pathname];
     setPageName(title);
   }, [location.pathname]);
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      const data = await getUserById();
-
-      if (!data) {
-        console.log("Something went wrong");
-      }
-
-      setProfile(data);
-    };
-
-    fetchUserData();
-  }, []);
 
   const handleHamburger = async () => {
     setOpenDrawer(true);
