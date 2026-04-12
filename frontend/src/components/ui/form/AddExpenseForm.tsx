@@ -27,7 +27,7 @@ const AddExpenseForm = ({ form, handleSubmit, category }: Props) => {
           <select
             id="category"
             {...form.register("category")}
-            className="input-box"
+            className="select-box"
           >
             {category.map((c) => {
               return (

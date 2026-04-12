@@ -26,7 +26,7 @@ const AddIncomeForm = ({ form, handleSubmit, source }: Props) => {
           <select
             id="source"
             {...form.register("source")}
-            className="input-box"
+            className="select-box"
           >
             {source.map((s) => {
               return (

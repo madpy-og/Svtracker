@@ -1,11 +1,30 @@
 import { v2 as cloudinary } from "cloudinary";
 
 const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
-const MAX_SIZE = 2 * 1024 * 1024; // 2MB
+
+const UPLOAD_CONFIG = {
+  avatar: {
+    getFolder: (userId) => `avatars/users/${userId}`,
+    maxSize: 2 * 1024 * 1024,
+  },
+  source: {
+    getFolder: (userId) => `sources/users/${userId}`,
+    maxSize: 2 * 1024 * 1024,
+  },
+  category: {
+    getFolder: (userId) => `categories/users/${userId}`,
+    maxSize: 2 * 1024 * 1024,
+  },
+};
 
 export const getSignature = async (req, res) => {
   try {
-    const { fileType, fileSize } = req.body;
+    const { fileType, fileSize, uploadType } = req.body;
+
+    const config = UPLOAD_CONFIG[uploadType];
+    if (!config) {
+      return res.status(400).json({ message: "Invalid upload type" });
+    }
 
     if (!fileType || !fileSize) {
       return res.status(400).json({
@@ -14,19 +33,18 @@ export const getSignature = async (req, res) => {
     }
 
     if (!ALLOWED_TYPES.includes(fileType)) {
-      return res.status(415).json({
-        message: "Unsupported image format",
+      return res.status(415).json({ message: "Unsupported image format" });
+    }
+
+    if (fileSize > config.maxSize) {
+      const limitMB = config.maxSize / (1024 * 1024);
+      return res.status(413).json({
+        message: `Image size exceeds the maximum limit (${limitMB}MB)`,
       });
     }
 
-    if (fileSize > MAX_SIZE) {
-      return res
-        .status(413)
-        .json({ message: "Image size exceeds the maximum limit (2MB)" });
-    }
-
     const timestamp = Math.round(Date.now() / 1000);
-    const folder = `avatars/users/${req.user._id}`;
+    const folder = config.getFolder(req.user._id);
 
     const signature = cloudinary.utils.api_sign_request(
       { timestamp, folder },
@@ -41,6 +59,6 @@ export const getSignature = async (req, res) => {
       folder,
     });
   } catch (error) {
-    res.status(500).json({ message: "internal server error" });
+    res.status(500).json({ message: "Internal server error" });
   }
 };
