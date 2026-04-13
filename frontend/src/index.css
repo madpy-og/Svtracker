@@ -59,6 +59,18 @@ html {
   background-size: 12px;
 }
 
+.select-box option {
+  @apply bg-cuswhite text-cusblack font-semibold text-bs-m md:text-bs;
+}
+
+.select-box option:disabled {
+  @apply text-cusdarkgrey;
+}
+
+.select-box option:checked {
+  @apply bg-cusorange text-cuswhite;
+}
+
 ::-webkit-scrollbar {
   display: none;
 }

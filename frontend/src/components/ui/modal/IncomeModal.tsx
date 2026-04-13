@@ -46,7 +46,7 @@ const IncomeModal = ({ openModal, setOpenModal, onSuccess, source }: Props) => {
           className="fixed inset-0 z-90 bg-black/40 transition-opacity duration-30 opacity-100"
         ></div>
         <div className="fixed z-100 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
-          <Card className="relative w-100 h-120">
+          <Card className="relative w-90">
             <AddIncomeForm
               form={form}
               handleSubmit={handleSubmit}

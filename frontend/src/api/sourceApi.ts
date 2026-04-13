@@ -9,7 +9,7 @@ export const getAllSource = async () => {
 
     if (!res.ok) {
       console.log("Failed to get source data");
-      return
+      return;
     }
 
     const data = await res.json();
@@ -39,7 +39,7 @@ export const addSource = async ({ name, icon }: SourceSchema) => {
 
     if (!res.ok) {
       console.log("Failed to add source data");
-      return
+      return;
     }
 
     const result = await res.json();
@@ -61,7 +61,7 @@ export const deleteSource = async (id: string) => {
 
     if (!res.ok) {
       console.log("Failed to delete source data");
-      return
+      return;
     }
 
     const result = await res.json();
