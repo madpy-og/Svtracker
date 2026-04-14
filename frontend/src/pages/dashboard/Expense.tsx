@@ -1,7 +1,7 @@
 import React from "react";
 import Card from "../../components/ui/Card";
 import ExpenseList from "../../components/ui/list/ExpenseList";
-import Button from "../../components/ui/Button";
+import { AddButton } from "../../components/ui/Button";
 import type { ExpenseSchema } from "../../schemas/expenseSchema";
 import { useOutletContext } from "react-router";
 
@@ -26,7 +26,7 @@ const Expense = () => {
             <p className="text-bd-m md:text-bd text-cusblack font-semibold">
               Expense Category
             </p>
-            <Button variant="addExpense" setOpenModal={setOpenModal} />
+            <AddButton variant="addExpense" setOpenModal={setOpenModal} />
           </div>
           <div className="grid grid-cols-1 md:grid md:grid-cols-2 gap-1 md:gap-2">
             <ExpenseList datas={expense} />

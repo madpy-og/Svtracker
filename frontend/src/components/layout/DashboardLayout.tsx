@@ -12,6 +12,7 @@ import { useExpense } from "../../hooks/useExpense";
 import { useUser } from "../../hooks/useUser";
 import { useSource } from "../../hooks/useSource";
 import { useCategory } from "../../hooks/useCategory";
+import ProfileModal from "../ui/modal/ProfileModal";
 
 const PageTitles: Record<string, string> = {
   "/": "Analytics",
@@ -54,6 +55,12 @@ const DashboardLayout = () => {
         />
       )}
 
+      <ProfileModal
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        onSuccess={refetchUserData}
+        user={profile}
+      />
       <IncomeModal
         openModal={openModal}
         setOpenModal={setOpenModal}
@@ -70,6 +77,7 @@ const DashboardLayout = () => {
         user={profile}
         openDrawer={openDrawer}
         setOpenDrawer={setOpenDrawer}
+        setOpenModal={setOpenModal}
       />
       <Navbar handleHamburger={handleHamburger} />
       <Sidebar />
@@ -83,6 +91,7 @@ const DashboardLayout = () => {
               variant="horizontal"
               user={profile}
               className="hidden md:flex"
+              setOpenModal={setOpenModal}
             />
           </div>
           <Outlet

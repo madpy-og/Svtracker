@@ -2,7 +2,7 @@ import React from "react";
 import Card from "../../components/ui/Card";
 import { useIncome } from "../../hooks/useIncome";
 import IncomeList from "../../components/ui/list/IncomeList";
-import Button from "../../components/ui/Button";
+import { AddButton } from "../../components/ui/Button";
 import type { IncomeSchema } from "../../schemas/incomeSchema";
 import { useOutletContext } from "react-router";
 
@@ -27,7 +27,7 @@ const Income = () => {
             <p className="text-bd-m md:text-bd text-cusblack font-semibold">
               Income Source
             </p>
-            <Button variant="addIncome" setOpenModal={setOpenModal} />
+            <AddButton variant="addIncome" setOpenModal={setOpenModal} />
           </div>
           <div className="grid grid-cols-1 md:grid md:grid-cols-2 gap-1 md:gap-2">
             <IncomeList datas={income} />

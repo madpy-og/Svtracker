@@ -1,13 +1,19 @@
-import { Plus } from "lucide-react";
+import { Pen, Plus } from "lucide-react";
 import React from "react";
 import { useOutletContext } from "react-router";
 
-type Props = {
+type AddProps = {
   variant: "addIncome" | "addExpense";
   setOpenModal: React.Dispatch<React.SetStateAction<string | null>>;
 };
 
-const Button = ({ variant, setOpenModal }: Props) => {
+type EditProps = {
+  variant: "editProfile";
+  style: "vertical" | "horizontal";
+  setOpenModal: React.Dispatch<React.SetStateAction<string | null>>;
+};
+
+export const AddButton = ({ variant, setOpenModal }: AddProps) => {
   return (
     <button
       onClick={() => setOpenModal(variant)}
@@ -19,4 +25,17 @@ const Button = ({ variant, setOpenModal }: Props) => {
   );
 };
 
-export default Button;
+export const EditButton = ({ variant, style, setOpenModal }: EditProps) => {
+  return (
+    <button
+      onClick={() => setOpenModal(variant)}
+      className={`${style === "horizontal" ? "right-0 bottom-0" : "right-1 bottom-0"} absolute bg-cusorange rounded-full p-1 flex justify-center items-center shadow-lg z-10 cursor-pointer`}
+    >
+      <Pen
+        size={`${style === "horizontal" ? 8 : 10}`}
+        strokeWidth={3}
+        className="text-cuswhite"
+      />
+    </button>
+  );
+};
