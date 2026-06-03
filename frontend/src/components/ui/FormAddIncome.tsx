@@ -20,7 +20,7 @@ const FormAddIncome = ({ form, handleSubmit, source }: Props) => {
   }));
   return (
     <div className="p-2 flex flex-col gap-4">
-      <form onSubmit={form.handleSubmit(handleSubmit)}>
+      <form onSubmit={form.handleSubmit(handleSubmit)} id="add-income-form">
         <div className="flex flex-col gap-2.5">
           <div className="flex flex-col">
             <label
@@ -81,6 +81,8 @@ const FormAddIncome = ({ form, handleSubmit, source }: Props) => {
       </form>
       <div className="flex justify-end">
         <button
+          type="submit"
+          form="add-income-form"
           disabled={form.formState.isSubmitting}
           className={`${form.formState.isSubmitting ? "bg-cusred" : "bg-cusorange"} px-4 h-7 md:h-9 hover:bg-cusred text-cuswhite text-bd-m md:text-bd font-semibold rounded-md cursor-pointer`}
         >

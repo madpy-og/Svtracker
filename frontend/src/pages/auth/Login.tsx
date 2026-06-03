@@ -91,6 +91,7 @@ const Login = () => {
             </div>
           </div>
           <button
+            type="submit"
             disabled={form.formState.isSubmitting}
             className={`${form.formState.isSubmitting ? "bg-cusred" : "bg-cusorange"} h-7 md:h-9 hover:bg-cusred text-cuswhite text-bd-m md:text-bd font-semibold rounded-md cursor-pointer`}
           >
