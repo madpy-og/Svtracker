@@ -1,6 +1,7 @@
 import React, { type ReactNode } from "react";
 import { useState } from "react";
-import logo from "../../../assets/images/svtracker-logo.png";
+import logo from "../../assets/images/svtracker-logo.png";
+import logoWhite from "../../assets/images/svtracker-white-logo.png";
 import {
   ChartColumnIncreasing,
   Settings,
@@ -8,7 +9,7 @@ import {
   HandCoins,
   PiggyBank,
 } from "lucide-react";
-import { logout } from "../../../api/authApi";
+import { logout } from "../../api/authApi";
 import { NavLink, useNavigate } from "react-router";
 
 const Sidebar = () => {

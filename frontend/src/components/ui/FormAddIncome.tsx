@@ -3,9 +3,9 @@ import type { UseFormReturn } from "react-hook-form";
 import type {
   IncomeFormInput,
   IncomeFormOutput,
-} from "../../../schemas/incomeSchema";
-import type { SourceSchema } from "../../../schemas/sourceSchema";
-import CustomSelect from "../CustomSelect";
+} from "../../schemas/incomeSchema";
+import type { SourceSchema } from "../../schemas/sourceSchema";
+import CustomSelect from "./CustomSelect";
 
 type Props = {
   form: UseFormReturn<IncomeFormInput, unknown, IncomeFormOutput>;
@@ -13,7 +13,7 @@ type Props = {
   source: SourceSchema[];
 };
 
-const AddIncomeForm = ({ form, handleSubmit, source }: Props) => {
+const FormAddIncome = ({ form, handleSubmit, source }: Props) => {
   const sourceOptions = source.map((s) => ({
     label: s.name,
     value: s._id,
@@ -91,4 +91,4 @@ const AddIncomeForm = ({ form, handleSubmit, source }: Props) => {
   );
 };
 
-export default AddIncomeForm;
+export default FormAddIncome;

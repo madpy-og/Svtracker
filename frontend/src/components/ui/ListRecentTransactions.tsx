@@ -1,7 +1,7 @@
 import React from "react";
-import type { DashboardSchema } from "../../../schemas/dashboardSchema";
-import { formatRupiah } from "../../../utils/formatRupiah";
-import { formatDate } from "../../../utils/formatDate";
+import type { DashboardSchema } from "../../schemas/dashboardSchema";
+import { formatRupiah } from "../../utils/formatRupiah";
+import { formatDate } from "../../utils/formatDate";
 import { TrendingDown, TrendingUp } from "lucide-react";
 import List from "./List";
 
@@ -9,7 +9,7 @@ type Props = {
   transactions: DashboardSchema["recentTransactions"];
 };
 
-const RecentTransactions = ({ transactions }: Props) => {
+const ListRecentTransactions = ({ transactions }: Props) => {
   return (
     <>
       {transactions.map((transaction) => {
@@ -28,4 +28,4 @@ const RecentTransactions = ({ transactions }: Props) => {
   );
 };
 
-export default RecentTransactions;
+export default ListRecentTransactions;

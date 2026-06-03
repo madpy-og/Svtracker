@@ -3,10 +3,10 @@ import type {
   ExpenseFormInput,
   ExpenseFormOutput,
   ExpenseSchema,
-} from "../../../schemas/expenseSchema";
+} from "../../schemas/expenseSchema";
 import type { UseFormReturn } from "react-hook-form";
-import type { CategorySchema } from "../../../schemas/categorySchema";
-import CustomSelect from "../CustomSelect";
+import type { CategorySchema } from "../../schemas/categorySchema";
+import CustomSelect from "./CustomSelect";
 
 type Props = {
   form: UseFormReturn<ExpenseFormInput, unknown, ExpenseFormOutput>;

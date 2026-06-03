@@ -1,10 +1,10 @@
 import Card from "../../components/ui/Card";
 import { formatRupiah } from "../../utils/formatRupiah";
-import RecentTransactions from "../../components/ui/list/RecentTransactions";
-import { useDashboard } from "../../hooks/useDashboard";
+import ListRecentTransactions from "../../components/ui/ListRecentTransactions";
+import { useFinanceStore } from "../../store/financeStore";
 
 const Home = () => {
-  const { dashboard } = useDashboard();
+  const { dashboard } = useFinanceStore();
 
   return (
     <div className="flex flex-col gap-3.75">
@@ -47,7 +47,7 @@ const Home = () => {
             Recent Transactions
           </p>
           <div className="grid grid-cols-1 gap-1 md:gap-2">
-            <RecentTransactions
+            <ListRecentTransactions
               transactions={dashboard?.recentTransactions ?? []}
             />
           </div>

@@ -1,16 +1,15 @@
 import { NavLink } from "react-router";
-import logo from "../../../assets/images/svtracker-logo.png";
+import logo from "../../assets/images/svtracker-logo.png";
 import { Menu } from "lucide-react";
+import { useUIStore } from "../../store/uiStore";
 
-type Props = {
-  handleHamburger: () => void;
-};
+const Navbar = () => {
+  const { setOpenDrawer } = useUIStore();
 
-const Navbar = ({ handleHamburger }: Props) => {
   return (
     <nav className="fixed top-0 w-full z-50 flex items-center md:hidden justify-between h-12 px-4 bg-cuswhite shadow-md">
       <button
-        onClick={handleHamburger}
+        onClick={() => setOpenDrawer(true)}
         className="p-1 rounded-md hover:bg-cusgrey cursor-pointer"
       >
         <Menu

@@ -1,31 +1,20 @@
 import React from "react";
-import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import {
   expenseFormSchema,
   type ExpenseFormInput,
   type ExpenseFormOutput,
-  type ExpenseSchema,
-} from "../../../schemas/expenseSchema";
-import { addExpense } from "../../../api/expenseApi";
-import AddExpenseForm from "../form/AddExpenseForm";
-import Card from "../Card";
-import type { CategorySchema } from "../../../schemas/categorySchema";
+} from "../../schemas/expenseSchema";
+import AddExpenseForm from "./FormAddExpense";
+import Card from "./Card";
+import { useUIStore } from "../../store/uiStore";
+import { useFinanceStore } from "../../store/financeStore";
 
-type Props = {
-  openModal: string | null;
-  setOpenModal: React.Dispatch<React.SetStateAction<string | null>>;
-  onSuccess: () => void;
-  category: CategorySchema[];
-};
+const ModalExpense = () => {
+  const { openModal, closeModal } = useUIStore();
+  const { category, createExpense } = useFinanceStore();
 
-const ExpenseModal = ({
-  openModal,
-  setOpenModal,
-  onSuccess,
-  category,
-}: Props) => {
   const form = useForm<ExpenseFormInput, unknown, ExpenseFormOutput>({
     resolver: zodResolver(expenseFormSchema),
   });
@@ -33,10 +22,8 @@ const ExpenseModal = ({
   const handleSubmit = async (value: ExpenseFormOutput) => {
     try {
       await new Promise((resolve) => setTimeout(resolve, 1000));
-      await addExpense(value);
-
-      onSuccess?.();
-      setOpenModal(null);
+      await createExpense(value);
+      closeModal();
     } catch (error) {
       console.error(error);
     }
@@ -46,9 +33,7 @@ const ExpenseModal = ({
     return (
       <>
         <div
-          onClick={() => {
-            setOpenModal(null);
-          }}
+          onClick={closeModal}
           className="fixed inset-0 z-90 bg-black/40 transition-opacity duration-30 opacity-100"
         ></div>
         <div className="fixed z-100 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -67,4 +52,4 @@ const ExpenseModal = ({
   return null;
 };
 
-export default ExpenseModal;
+export default ModalExpense;

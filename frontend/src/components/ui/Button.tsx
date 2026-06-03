@@ -1,20 +1,19 @@
 import { Pen, Plus } from "lucide-react";
 import React from "react";
-import { useOutletContext } from "react-router";
+import { useUIStore } from "../../store/uiStore";
 
 type AddProps = {
   variant: "addIncome" | "addExpense";
-  setOpenModal: React.Dispatch<React.SetStateAction<string | null>>;
 };
 
 type EditProps = {
   variant: "editProfile";
   style: "vertical" | "horizontal";
-  setOpenDrawer?: React.Dispatch<React.SetStateAction<boolean>>;
-  setOpenModal: React.Dispatch<React.SetStateAction<string | null>>;
 };
 
-export const AddButton = ({ variant, setOpenModal }: AddProps) => {
+export const AddButton = ({ variant }: AddProps) => {
+  const { setOpenModal } = useUIStore();
+
   return (
     <button
       onClick={() => setOpenModal(variant)}
@@ -26,15 +25,12 @@ export const AddButton = ({ variant, setOpenModal }: AddProps) => {
   );
 };
 
-export const EditButton = ({
-  variant,
-  style,
-  setOpenDrawer,
-  setOpenModal,
-}: EditProps) => {
+export const EditButton = ({ variant, style }: EditProps) => {
+  const { setOpenModal, setOpenDrawer } = useUIStore();
+
   const handleClick = () => {
     setOpenModal(variant);
-    setOpenDrawer?.(false);
+    setOpenDrawer(false);
   };
   return (
     <button

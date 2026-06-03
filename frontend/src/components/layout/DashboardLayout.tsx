@@ -1,18 +1,14 @@
 import React, { useEffect } from "react";
-import { useState } from "react";
-import Sidebar from "../ui/main/Sidebar";
+import Sidebar from "../ui/Sidebar";
 import { Outlet, useLocation } from "react-router";
-import Profile from "../ui/main/Profile";
-import Navbar from "../ui/main/Navbar";
-import Drawer from "../ui/main/Drawer";
-import IncomeModal from "../ui/modal/IncomeModal";
-import ExpenseModal from "../ui/modal/ExpenseModal";
-import { useIncome } from "../../hooks/useIncome";
-import { useExpense } from "../../hooks/useExpense";
-import { useUser } from "../../hooks/useUser";
-import { useSource } from "../../hooks/useSource";
-import { useCategory } from "../../hooks/useCategory";
-import ProfileModal from "../ui/modal/ProfileModal";
+import Profile from "../ui/Profile";
+import Navbar from "../ui/Navbar";
+import Drawer from "../ui/Drawer";
+import ModalIncome from "../ui/ModalIncome";
+import ModalExpense from "../ui/ModalExpense";
+import ModalProfile from "../ui/ModalProfile";
+import { useUIStore } from "../../store/uiStore";
+import { useFinanceStore } from "../../store/financeStore";
 
 const PageTitles: Record<string, string> = {
   "/": "Analytics",
@@ -22,26 +18,20 @@ const PageTitles: Record<string, string> = {
 };
 
 const DashboardLayout = () => {
-  const [pageName, setPageName] = useState<string>("");
-  const [openDrawer, setOpenDrawer] = useState<boolean>(false);
-  const [openModal, setOpenModal] = useState<string | null>(null);
-
-  const { income, refetchIncomeData } = useIncome();
-  const { expense, refetchExpenseData } = useExpense();
-  const { profile, refetchUserData } = useUser();
-  const { source, refetchSourceData } = useSource();
-  const { category, refetchCategoryData } = useCategory();
+  const { openDrawer, setOpenDrawer, pageName, setPageName } = useUIStore();
+  const { fetchAllData } = useFinanceStore();
 
   const location = useLocation();
 
   useEffect(() => {
-    const title = PageTitles[location.pathname];
+    const title = PageTitles[location.pathname] || "Analytics";
     setPageName(title);
-  }, [location.pathname]);
+  }, [location.pathname, setPageName]);
 
-  const handleHamburger = async () => {
-    setOpenDrawer(true);
-  };
+  useEffect(() => {
+    fetchAllData();
+  }, [fetchAllData]);
+
 
   return (
     <div className="flex flex-col md:grid md:grid-cols-[240px_1fr] w-screen h-screen bg-cusgrey ">
@@ -50,36 +40,16 @@ const DashboardLayout = () => {
           onClick={() => {
             setOpenDrawer(false);
           }}
-          className="fixed inset-0 z-90 bg-black/40 md:hidden transition-opacity duration-300
-      opacity-100"
+          className="fixed inset-0 z-90 bg-black/40 md:hidden transition-opacity duration-300 opacity-100"
         />
       )}
 
-      <ProfileModal
-        openModal={openModal}
-        setOpenModal={setOpenModal}
-        onSuccess={refetchUserData}
-        user={profile}
-      />
-      <IncomeModal
-        openModal={openModal}
-        setOpenModal={setOpenModal}
-        onSuccess={refetchIncomeData}
-        source={source}
-      />
-      <ExpenseModal
-        openModal={openModal}
-        setOpenModal={setOpenModal}
-        onSuccess={refetchExpenseData}
-        category={category}
-      />
-      <Drawer
-        user={profile}
-        openDrawer={openDrawer}
-        setOpenDrawer={setOpenDrawer}
-        setOpenModal={setOpenModal}
-      />
-      <Navbar handleHamburger={handleHamburger} />
+      <ModalProfile />
+      <ModalIncome />
+      <ModalExpense />
+
+      <Drawer />
+      <Navbar />
       <Sidebar />
       <section className="flex-1 overflow-y-auto pb-3.75 pt-12 md:pt-2.5 md:pb-6.5 px-4 md:px-8">
         <div className="flex flex-col gap-3.75">
@@ -89,18 +59,10 @@ const DashboardLayout = () => {
             </h4>
             <Profile
               variant="horizontal"
-              user={profile}
               className="hidden md:flex"
-              setOpenModal={setOpenModal}
             />
           </div>
-          <Outlet
-            context={{
-              setOpenModal: setOpenModal,
-              income: income,
-              expense: expense,
-            }}
-          />
+          <Outlet />
         </div>
       </section>
     </div>

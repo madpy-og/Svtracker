@@ -1,37 +1,25 @@
 import React from "react";
-import type { UserSchema } from "../../../schemas/userSchema";
-import { EditButton } from "../Button";
+import { EditButton } from "./Button";
+import { useFinanceStore } from "../../store/financeStore";
 
 type Props = {
-  user: UserSchema | null;
   className?: string;
   variant?: "horizontal" | "vertical";
-  setOpenModal: React.Dispatch<React.SetStateAction<string | null>>;
-  setOpenDrawer?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const Profile = ({
-  user,
-  className,
-  variant,
-  setOpenModal,
-  setOpenDrawer,
-}: Props) => {
+const Profile = ({ className, variant }: Props) => {
+  const { profile: user } = useFinanceStore();
+
   if (variant === "vertical") {
     return (
       <div className={`flex flex-col items-center gap-4 ${className}`}>
         <div className="relative w-20 h-20">
           <img
-            src={user?.profileImage.url}
+            src={user?.profileImage?.url}
             alt="profile-image"
             className="w-full h-full rounded-full object-cover"
           />
-          <EditButton
-            style={variant}
-            variant="editProfile"
-            setOpenModal={setOpenModal}
-            setOpenDrawer={setOpenDrawer}
-          />
+          <EditButton style={variant} variant="editProfile" />
         </div>
         <div className="flex flex-col gap-1">
           <p className="text-cusblack text-bd-m md:text-bd font-semibold text-center leading-none">
@@ -48,15 +36,11 @@ const Profile = ({
       <div className={`flex items-center gap-2.5 ${className}`}>
         <div className="relative w-10 h-10">
           <img
-            src={user?.profileImage.url}
+            src={user?.profileImage?.url}
             alt="profile-image"
             className="w-full h-full rounded-full object-cover"
           />
-          <EditButton
-            style={variant}
-            variant="editProfile"
-            setOpenModal={setOpenModal}
-          />
+          <EditButton style={variant} variant="editProfile" />
         </div>
         <div className="flex flex-col gap-1">
           <p className="text-cusblack text-bd font-semibold leading-none">
@@ -69,6 +53,8 @@ const Profile = ({
       </div>
     );
   }
+
+  return null;
 };
 
 export default Profile;

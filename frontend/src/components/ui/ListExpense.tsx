@@ -1,20 +1,20 @@
 import React from "react";
-import type { IncomeSchema } from "../../../schemas/incomeSchema";
+import type { ExpenseSchema } from "../../schemas/expenseSchema";
 import List from "./List";
 
 type Props = {
-  datas: IncomeSchema[];
+  datas: ExpenseSchema[];
 };
 
-const IncomeList = ({ datas }: Props) => {
+const ExpenseList = ({ datas }: Props) => {
   return (
     <>
       {datas.map((data) => {
         return (
           <List
             key={data._id}
-            icon={data.source.icon}
-            sourceName={data.source.name}
+            icon={data.category.icon}
+            categoryName={data.category.name}
             date={data.date}
             amount={data.amount}
           />
@@ -24,4 +24,4 @@ const IncomeList = ({ datas }: Props) => {
   );
 };
 
-export default IncomeList;
+export default ExpenseList;

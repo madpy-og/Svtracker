@@ -7,19 +7,13 @@ import {
   Settings,
 } from "lucide-react";
 import { NavLink, useNavigate } from "react-router";
-import { logout } from "../../../api/authApi";
+import { logout } from "../../api/authApi";
 import Profile from "./Profile";
-import type { UserSchema } from "../../../schemas/userSchema";
+import { useUIStore } from "../../store/uiStore";
 
-type Props = {
-  user: UserSchema | null;
-  openDrawer: boolean;
-  setOpenDrawer: React.Dispatch<React.SetStateAction<boolean>>;
-  setOpenModal: React.Dispatch<React.SetStateAction<string | null>>;
-};
-
-const Drawer = ({ user, openDrawer, setOpenDrawer, setOpenModal }: Props) => {
+const Drawer = () => {
   const navigate = useNavigate();
+  const { openDrawer, setOpenDrawer } = useUIStore();
 
   const handleLogout = async () => {
     try {
@@ -30,17 +24,13 @@ const Drawer = ({ user, openDrawer, setOpenDrawer, setOpenModal }: Props) => {
       console.error(error);
     }
   };
+
   return (
     <aside
       className={`flex md:hidden flex-col fixed z-95 left-0 top-0 h-screen w-[240px] gap-5 rounded-[0px_15px_15px_0px] p-[32px_32px_285px_32px] bg-cuswhite shadow-md transform transition-transform duration-300 ease-in-out
         ${openDrawer ? "translate-x-0" : "-translate-x-full"}`}
     >
-      <Profile
-        user={user}
-        variant="vertical"
-        setOpenModal={setOpenModal}
-        setOpenDrawer={setOpenDrawer}
-      />
+      <Profile variant="vertical" />
       <div className="flex flex-col gap-5 ">
         <NavLink
           to="/"
@@ -76,7 +66,6 @@ const Drawer = ({ user, openDrawer, setOpenDrawer, setOpenModal }: Props) => {
           <p className="text-bd-m font-semibold">Expenses</p>
         </NavLink>
         <NavLink
-          //TEMPORARY
           to="/setting"
           onClick={() => setOpenDrawer(false)}
           className={({ isActive }) =>

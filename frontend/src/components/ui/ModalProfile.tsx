@@ -1,21 +1,18 @@
 import React from "react";
-import type { UserSchema } from "../../../schemas/userSchema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { type UploadSchema, uploadSchema } from "../../../schemas/uploadSchema";
-import Card from "../Card";
+import { type UploadSchema, uploadSchema } from "../../schemas/uploadSchema";
+import Card from "./Card";
 import { Download } from "lucide-react";
-import { uploadToCloudinary } from "../../../api/cloudinaryApi";
-import { updateProfileImage } from "../../../api/userApi";
+import { uploadToCloudinary } from "../../api/cloudinaryApi";
+import { updateProfileImage } from "../../api/userApi";
+import { useUIStore } from "../../store/uiStore";
+import { useFinanceStore } from "../../store/financeStore";
 
-type Props = {
-  openModal: string | null;
-  setOpenModal: React.Dispatch<React.SetStateAction<string | null>>;
-  onSuccess: () => void;
-  user: UserSchema | null;
-};
+const ModalProfile = () => {
+  const { openModal, closeModal } = useUIStore();
+  const { fetchProfile } = useFinanceStore();
 
-const ProfileModal = ({ openModal, setOpenModal, onSuccess }: Props) => {
   const form = useForm<UploadSchema>({
     resolver: zodResolver(uploadSchema),
   });
@@ -31,17 +28,18 @@ const ProfileModal = ({ openModal, setOpenModal, onSuccess }: Props) => {
       }
 
       await updateProfileImage(data.url, data.publicId);
+      await fetchProfile(); // Sync profile data after upload
+      closeModal();
     } catch (error) {
       console.error(error);
     }
   };
+
   if (openModal === "editProfile") {
     return (
       <>
         <div
-          onClick={() => {
-            setOpenModal(null);
-          }}
+          onClick={closeModal}
           className="fixed inset-0 z-90 bg-black/40 transition-opacity duration-30 opacity-100"
         ></div>
         <div className="fixed z-100 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
@@ -101,9 +99,7 @@ const ProfileModal = ({ openModal, setOpenModal, onSuccess }: Props) => {
                 Save
               </button>
               <button
-                onClick={() => {
-                  setOpenModal(null);
-                }}
+                onClick={closeModal}
                 className="text-bs-m md:text-bs bg-cusgrey text-cusblack font-semibold py-1 px-4 rounded-md hover:bg-cusdarkgrey/30 cursor-pointer"
               >
                 Cancel
@@ -118,4 +114,4 @@ const ProfileModal = ({ openModal, setOpenModal, onSuccess }: Props) => {
   return null;
 };
 
-export default ProfileModal;
+export default ModalProfile;
