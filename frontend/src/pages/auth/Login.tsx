@@ -63,11 +63,6 @@ const Login = () => {
                 {...form.register("email")}
                 className="input-box"
               />
-              {form.formState.errors.email && (
-                <p className="mt-1 text-bs-m md:text-bs text-danger">
-                  {form.formState.errors.email.message}
-                </p>
-              )}
             </div>
             <div className="flex flex-col">
               <label
@@ -83,12 +78,15 @@ const Login = () => {
                 {...form.register("password")}
                 className="input-box"
               />
-              {form.formState.errors.password && (
-                <p className="mt-1 text-bs-m md:text-bs text-danger">
-                  {form.formState.errors.password.message}
-                </p>
-              )}
             </div>
+            {Object.keys(form.formState.errors).length > 0 && (
+              <p className="text-bs-m md:text-bs text-danger truncate">
+                {Object.values(form.formState.errors)
+                  .map((error) => error?.message)
+                  .filter(Boolean)
+                  .join(", ")}
+              </p>
+            )}
           </div>
           <button
             type="submit"

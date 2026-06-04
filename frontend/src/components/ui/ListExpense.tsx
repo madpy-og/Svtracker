@@ -6,7 +6,7 @@ type Props = {
   datas: ExpenseSchema[];
 };
 
-const ExpenseList = ({ datas }: Props) => {
+const ListExpense = ({ datas }: Props) => {
   return (
     <>
       {datas.map((data) => {
@@ -24,4 +24,4 @@ const ExpenseList = ({ datas }: Props) => {
   );
 };
 
-export default ExpenseList;
+export default ListExpense;

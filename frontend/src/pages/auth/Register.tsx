@@ -66,11 +66,6 @@ const Register = () => {
                 {...form.register("fullname")}
                 className="input-box"
               />
-              {form.formState.errors.fullname && (
-                <p className="mt-1 text-bs-m md:text-bs text-danger">
-                  {form.formState.errors.fullname.message}
-                </p>
-              )}
             </div>
             <div className="flex flex-col">
               <label
@@ -86,11 +81,6 @@ const Register = () => {
                 {...form.register("email")}
                 className="input-box"
               />
-              {form.formState.errors.email && (
-                <p className="mt-1 text-bs-m md:text-bs text-danger">
-                  {form.formState.errors.email.message}
-                </p>
-              )}
             </div>
             <div>
               <div className="grid grid-cols-2 gap-3.5">
@@ -125,18 +115,15 @@ const Register = () => {
                   />
                 </div>
               </div>
-              {(form.formState.errors.password ||
-                form.formState.errors.confirmPassword) && (
-                <p className="mt-1 text-bs-m md:text-bs text-danger">
-                  {[
-                    form.formState.errors.password?.message,
-                    form.formState.errors.confirmPassword?.message,
-                  ]
-                    .filter(Boolean)
-                    .join(", ")}
-                </p>
-              )}
             </div>
+            {Object.keys(form.formState.errors).length > 0 && (
+              <p className="text-bs-m md:text-bs text-danger truncate">
+                {Object.values(form.formState.errors)
+                  .map((error) => error?.message)
+                  .filter(Boolean)
+                  .join(", ")}
+              </p>
+            )}
           </div>
 
           <button

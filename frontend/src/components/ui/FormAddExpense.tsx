@@ -14,7 +14,7 @@ type Props = {
   category: CategorySchema[];
 };
 
-const AddExpenseForm = ({ form, handleSubmit, category }: Props) => {
+const FormAddExpense = ({ form, handleSubmit, category }: Props) => {
   const categoryOptions = category.map((c) => ({
     label: c.name,
     value: c._id,
@@ -94,4 +94,4 @@ const AddExpenseForm = ({ form, handleSubmit, category }: Props) => {
   );
 };
 
-export default AddExpenseForm;
+export default FormAddExpense;
