@@ -1,4 +1,5 @@
 import Expense from "../models/Expense.js";
+import { Types } from "mongoose";
 
 export const getAllExpense = async (req, res) => {
   try {
@@ -44,5 +45,40 @@ export const deleteExpense = async (req, res) => {
     res.status(200).json({ message: "Expense deleted succesfully" });
   } catch (error) {
     res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+// ── GET /api/expense/daily?days=30 ────────────────────────────
+export const getDailyExpense = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const userObjectId = new Types.ObjectId(String(userId));
+    const days = parseInt(req.query.days) || 30;
+
+    const startDate = new Date(Date.now() - days * 24 * 60 * 60 * 1000);
+
+    const result = await Expense.aggregate([
+      {
+        $match: {
+          userId: userObjectId,
+          date: { $gte: startDate },
+        },
+      },
+      {
+        $group: {
+          _id: {
+            year: { $year: "$date" },
+            month: { $month: "$date" },
+            day: { $dayOfMonth: "$date" },
+          },
+          total: { $sum: "$amount" },
+        },
+      },
+      { $sort: { "_id.year": 1, "_id.month": 1, "_id.day": 1 } },
+    ]);
+
+    res.json(result);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };
