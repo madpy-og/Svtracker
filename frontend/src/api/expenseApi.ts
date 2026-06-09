@@ -3,6 +3,7 @@ import type {
   ExpenseFormOutput,
   ExpenseSchema,
 } from "../schemas/expenseSchema";
+import type { DailyData } from "../schemas/dashboardSchema";
 
 export const getAllExpense = async () => {
   try {
@@ -75,6 +76,29 @@ export const deleteExpense = async (id: string) => {
 
     const result = await res.json();
     console.log(result);
+  } catch (error) {
+    console.log("Internal server error");
+  }
+};
+
+export const getDailyExpense = async (days = 30): Promise<DailyData[] | undefined> => {
+  try {
+    const res = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/v1/expenses/daily?days=${days}`,
+      {
+        method: "GET",
+        credentials: "include",
+      },
+    );
+
+    if (!res.ok) {
+      console.log("Failed to get daily expense data");
+      return;
+    }
+
+    const data = await res.json();
+
+    return data;
   } catch (error) {
     console.log("Internal server error");
   }
