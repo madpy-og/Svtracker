@@ -16,7 +16,7 @@ const ListRecentTransactions = ({ transactions }: Props) => {
         return (
           <List
             key={transaction._id}
-            icon={`${transaction.source ? transaction.source.icon : transaction.category.icon}`}
+            icon={`${transaction.source?.icon ?? transaction.category?.icon ?? ""}`}
             sourceName={transaction.source?.name}
             categoryName={transaction.category?.name}
             date={transaction.date}
