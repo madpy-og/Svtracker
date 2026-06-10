@@ -1,8 +1,10 @@
 import DoughnutChart from "./DoughnutChart";
 
 const COLORS = [
-  "#6366f1", "#f59e0b", "#10b981", "#ef4444",
-  "#3b82f6", "#ec4899", "#14b8a6", "#f97316",
+  "rgba(252, 57, 22, 1)", "rgba(252, 57, 22, 0.85)",
+  "rgba(252, 57, 22, 0.7)", "rgba(252, 57, 22, 0.55)",
+  "rgba(252, 57, 22, 0.4)", "rgba(252, 57, 22, 0.25)",
+  "rgba(252, 57, 22, 0.15)", "rgba(252, 57, 22, 0.05)",
 ];
 
 type CategoryData = {

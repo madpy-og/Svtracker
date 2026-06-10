@@ -29,8 +29,8 @@ const BalanceTrendChart = ({ transactions }: Props) => {
     {
       label: "Saldo",
       data: chartData.map((d) => d.balance),
-      borderColor: "#6366f1",
-      backgroundColor: "rgba(99, 102, 241, 0.15)",
+      borderColor: "#fc3916",
+      backgroundColor: "rgba(252, 57, 22, 0.15)",
       fill: true,
       tension: 0.4,
       pointRadius: 2,

@@ -15,8 +15,8 @@ const ExpenseMonthlyBarChart = ({ expenseByMonth }: Props) => {
     {
       label: "Total Expense",
       data: expenseByMonth.map((d) => d.total),
-      backgroundColor: "rgba(239, 68, 68, 0.8)",
-      borderColor: "#dc2626",
+      backgroundColor: "rgba(166, 25, 46, 0.8)",
+      borderColor: "#a6192e",
       borderWidth: 1,
       borderRadius: 6,
     },

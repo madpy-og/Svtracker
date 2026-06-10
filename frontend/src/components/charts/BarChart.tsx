@@ -23,9 +23,20 @@ const BarChart = ({ title, labels, datasets, showLegend = false, yAxisFormatter 
       title: { display: !!title, text: title || "" },
     },
     scales: {
+      x: {
+        grid: { display: false },
+        border: { display: false },
+        ticks: { maxTicksLimit: 12 },
+      },
       y: {
         beginAtZero: true,
+        border: { display: false },
+        grid: {
+          color: "#f3f4f6", // very light subtle color
+        },
         ticks: {
+          maxTicksLimit: 5, // Reduce number of labels
+          padding: 10,
           callback: (value) => (yAxisFormatter ? yAxisFormatter(Number(value)) : value),
         },
       },

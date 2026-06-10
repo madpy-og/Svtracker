@@ -1,8 +1,10 @@
 import DoughnutChart from "./DoughnutChart";
 
 const COLORS = [
-  "#22c55e", "#3b82f6", "#f59e0b", "#ec4899",
-  "#10b981", "#8b5cf6", "#14b8a6", "#f97316",
+  "rgba(252, 57, 22, 1)", "rgba(252, 57, 22, 0.85)",
+  "rgba(252, 57, 22, 0.7)", "rgba(252, 57, 22, 0.55)",
+  "rgba(252, 57, 22, 0.4)", "rgba(252, 57, 22, 0.25)",
+  "rgba(252, 57, 22, 0.15)", "rgba(252, 57, 22, 0.05)",
 ];
 
 type SourceData = {
