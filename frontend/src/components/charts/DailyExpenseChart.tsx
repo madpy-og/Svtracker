@@ -10,8 +10,8 @@ const DailyExpenseChart = ({ dailyExpense }: Props) => {
     {
       label: "Expense Harian",
       data: dailyExpense.map((d) => d.total),
-      borderColor: "#a6192e",
-      backgroundColor: "rgba(166, 25, 46, 0.1)",
+      borderColor: "#fc3916",
+      backgroundColor: "rgba(252, 57, 22, 0.1)",
       tension: 0.4,
       fill: true,
       pointRadius: 3,

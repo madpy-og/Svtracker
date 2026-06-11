@@ -77,14 +77,11 @@ export const useFinanceStore = create<FinanceState>((set, get) => ({
   source: [],
   category: [],
   dashboard: null,
-
-  // Initial state chart
   monthlySummary: null,
   expenseByCategory: [],
   incomeBySource: [],
   dailyIncome: [],
   dailyExpense: [],
-
   isLoading: false,
   error: null,
 
@@ -187,7 +184,6 @@ export const useFinanceStore = create<FinanceState>((set, get) => ({
     }
   },
 
-  // Fetch semua chart data sekaligus
   fetchChartData: async () => {
     try {
       await Promise.all([

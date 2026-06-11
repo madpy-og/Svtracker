@@ -10,8 +10,8 @@ const DailyIncomeChart = ({ dailyIncome }: Props) => {
     {
       label: "Income Harian",
       data: dailyIncome.map((d) => d.total),
-      borderColor: "#04b34f",
-      backgroundColor: "rgba(4, 179, 79, 0.1)",
+      borderColor: "#fc3916",
+      backgroundColor: "rgba(252, 57, 22, 0.1)",
       tension: 0.4,
       fill: true,
       pointRadius: 3,

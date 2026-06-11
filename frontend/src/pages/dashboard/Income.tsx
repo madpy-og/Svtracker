@@ -3,15 +3,16 @@ import Card from "../../components/ui/Card";
 import ListIncome from "../../components/ui/ListIncome";
 import { AddButton } from "../../components/ui/Button";
 import { useFinanceStore } from "../../store/financeStore";
+import IncomeMonthlyBarChart from "../../components/charts/IncomeMonthlyBarChart";
 
 const Income = () => {
-  const { income } = useFinanceStore();
+  const { income, monthlySummary } = useFinanceStore();
 
   return (
     <div className="flex flex-col gap-3.75">
       <div className="grid grid-cols-1 h-60 gap-2.5">
         <Card>
-          <div></div>
+          <IncomeMonthlyBarChart incomeByMonth={monthlySummary?.incomeByMonth || []} />
         </Card>
       </div>
       <div className="grid grid-cols-1 h-100 gap-2.5">

@@ -15,8 +15,8 @@ const IncomeMonthlyBarChart = ({ incomeByMonth }: Props) => {
     {
       label: "Total Income",
       data: incomeByMonth.map((d) => d.total),
-      backgroundColor: "rgba(4, 179, 79, 0.8)",
-      borderColor: "#04b34f",
+      backgroundColor: "rgba(252, 57, 22, 0.8)",
+      borderColor: "#fc3916",
       borderWidth: 1,
       borderRadius: 6,
     },

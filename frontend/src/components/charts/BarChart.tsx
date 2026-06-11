@@ -12,7 +12,7 @@ type Props = {
 const BarChart = ({ title, labels, datasets, showLegend = false, yAxisFormatter }: Props) => {
   const data: ChartData<"bar"> = {
     labels,
-    datasets,
+    datasets: datasets.map(ds => ({ ...ds, barThickness: 40 })),
   };
 
   const options: ChartOptions<"bar"> = {
@@ -43,7 +43,15 @@ const BarChart = ({ title, labels, datasets, showLegend = false, yAxisFormatter 
     },
   };
 
-  return <Bar data={data} options={options} />;
+  const minChartWidth = labels.length * 60;
+
+  return (
+    <div className="w-full h-full overflow-x-auto overflow-y-hidden pb-1 custom-scrollbar">
+      <div style={{ minWidth: `${minChartWidth}px`, width: "100%", height: "100%" }}>
+        <Bar data={data} options={options} />
+      </div>
+    </div>
+  );
 };
 
 export default BarChart;
