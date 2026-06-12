@@ -9,13 +9,16 @@ const Income = () => {
   const { income, monthlySummary } = useFinanceStore();
 
   return (
-    <div className="flex flex-col gap-3.75">
-      <div className="grid grid-cols-1 h-60 gap-2.5">
-        <Card>
+    <div className="flex flex-col gap-4">
+      <div className="grid grid-cols-1 h-60 gap-3">
+        <Card className="flex flex-col gap-2">
+          <p className="text-bd-m md:text-bd text-cusblack font-semibold">
+            Income Per Month
+          </p>
           <IncomeMonthlyBarChart incomeByMonth={monthlySummary?.incomeByMonth || []} />
         </Card>
       </div>
-      <div className="grid grid-cols-1 h-100 gap-2.5">
+      <div className="grid grid-cols-1 h-100 gap-3">
         <Card className="flex flex-col gap-2">
           <div className="flex justify-between items-center">
             <p className="text-bd-m md:text-bd text-cusblack font-semibold">

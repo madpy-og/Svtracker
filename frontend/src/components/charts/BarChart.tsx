@@ -43,11 +43,11 @@ const BarChart = ({ title, labels, datasets, showLegend = false, yAxisFormatter 
     },
   };
 
-  const minChartWidth = labels.length * 60;
+  const minChartWidth = Math.max(labels.length * 60 + 80, 250);
 
   return (
     <div className="w-full h-full overflow-x-auto overflow-y-hidden pb-1 custom-scrollbar">
-      <div style={{ minWidth: `${minChartWidth}px`, width: "100%", height: "100%" }}>
+      <div style={{ width: `${minChartWidth}px`, height: "100%" }}>
         <Bar data={data} options={options} />
       </div>
     </div>

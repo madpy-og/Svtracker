@@ -10,7 +10,7 @@ type Props = {
 };
 
 const ExpenseMonthlyBarChart = ({ expenseByMonth }: Props) => {
-  const labels = expenseByMonth.map((d) => MONTHS[d._id.month - 1]);
+  const labels = expenseByMonth.map((d) => `${MONTHS[d._id.month - 1]} ${d._id.year}`);
   const datasets = [
     {
       label: "Total Expense",
@@ -24,10 +24,13 @@ const ExpenseMonthlyBarChart = ({ expenseByMonth }: Props) => {
 
   return (
     <BarChart
-      title="Expense per Bulan"
       labels={labels}
       datasets={datasets}
-      yAxisFormatter={(value) => `Rp ${(value / 1_000_000).toFixed(1)}jt`}
+      yAxisFormatter={(value) => {
+        if (value >= 1_000_000) return `Rp ${(value / 1_000_000).toFixed(1)}jt`;
+        if (value >= 1_000) return `Rp ${(value / 1_000).toFixed(0)}rb`;
+        return `Rp ${value}`;
+      }}
     />
   );
 };

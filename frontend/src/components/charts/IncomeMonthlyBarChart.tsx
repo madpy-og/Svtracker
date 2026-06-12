@@ -10,7 +10,7 @@ type Props = {
 };
 
 const IncomeMonthlyBarChart = ({ incomeByMonth }: Props) => {
-  const labels = incomeByMonth.map((d) => MONTHS[d._id.month - 1]);
+  const labels = incomeByMonth.map((d) => `${MONTHS[d._id.month - 1]} ${d._id.year}`);
   const datasets = [
     {
       label: "Total Income",
@@ -24,10 +24,13 @@ const IncomeMonthlyBarChart = ({ incomeByMonth }: Props) => {
 
   return (
     <BarChart
-      title="Income per Bulan"
       labels={labels}
       datasets={datasets}
-      yAxisFormatter={(value) => `Rp ${(value / 1_000_000).toFixed(1)}jt`}
+      yAxisFormatter={(value) => {
+        if (value >= 1_000_000) return `Rp ${(value / 1_000_000).toFixed(1)}jt`;
+        if (value >= 1_000) return `Rp ${(value / 1_000).toFixed(0)}rb`;
+        return `Rp ${value}`;
+      }}
     />
   );
 };
