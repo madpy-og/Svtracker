@@ -1,5 +1,6 @@
 import Income from "../models/Income.js";
 import Expense from "../models/Expense.js";
+import User from "../models/User.js";
 import { Types } from "mongoose";
 
 // ── GET /api/dashboard ─────────────────────────────────────────
@@ -83,14 +84,21 @@ export const getMonthlySummary = async (req, res) => {
     const userId = req.user._id;
     const userObjectId = new Types.ObjectId(String(userId));
 
+    const user = await User.findById(userObjectId);
+    if (!user) return res.status(404).json({ message: "User not found" });
+
+    const startDate = user.createdAt || new Date();
+    const startYear = startDate.getFullYear();
+    const startMonth = startDate.getMonth() + 1; // 1-12
+
     const now = new Date();
-    const twelveMonthsAgo = new Date(now.getFullYear(), now.getMonth() - 11, 1);
+    const endYear = now.getFullYear();
+    const endMonth = now.getMonth() + 1;
 
-    const incomeByMonth = await Income.aggregate([
+    const rawIncomeByMonth = await Income.aggregate([
       {
         $match: {
           userId: userObjectId,
-          date: { $gte: twelveMonthsAgo },
         },
       },
       {
@@ -105,11 +113,10 @@ export const getMonthlySummary = async (req, res) => {
       { $sort: { "_id.year": 1, "_id.month": 1 } },
     ]);
 
-    const expenseByMonth = await Expense.aggregate([
+    const rawExpenseByMonth = await Expense.aggregate([
       {
         $match: {
           userId: userObjectId,
-          date: { $gte: twelveMonthsAgo },
         },
       },
       {
@@ -123,6 +130,31 @@ export const getMonthlySummary = async (req, res) => {
       },
       { $sort: { "_id.year": 1, "_id.month": 1 } },
     ]);
+
+    const fillGaps = (data) => {
+      const result = [];
+      let currYear = startYear;
+      let currMonth = startMonth;
+
+      while (currYear < endYear || (currYear === endYear && currMonth <= endMonth)) {
+        const found = data.find(
+          (d) => d._id.year === currYear && d._id.month === currMonth
+        );
+        result.push(
+          found || { _id: { year: currYear, month: currMonth }, total: 0 }
+        );
+
+        currMonth++;
+        if (currMonth > 12) {
+          currMonth = 1;
+          currYear++;
+        }
+      }
+      return result;
+    };
+
+    const incomeByMonth = fillGaps(rawIncomeByMonth);
+    const expenseByMonth = fillGaps(rawExpenseByMonth);
 
     res.json({ incomeByMonth, expenseByMonth });
   } catch (error) {
