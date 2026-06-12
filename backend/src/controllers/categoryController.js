@@ -2,7 +2,30 @@ import Category from "../models/Category.js";
 
 export const getAllCategory = async (req, res) => {
   try {
-    const category = await Category.find();
+    const category = await Category.aggregate([
+      {
+        $addFields: {
+          sortOrder: {
+            $cond: {
+              if: { $eq: [{ $toLower: "$name" }, "others"] },
+              then: 1,
+              else: 0,
+            },
+          },
+        },
+      },
+      {
+        $sort: {
+          sortOrder: 1,
+          name: 1,
+        },
+      },
+      {
+        $project: {
+          sortOrder: 0,
+        },
+      },
+    ]);
 
     res.status(200).json({ category, message: "Fetching category successful" });
   } catch (error) {

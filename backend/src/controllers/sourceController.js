@@ -2,7 +2,30 @@ import Source from "../models/Source.js";
 
 export const getAllSource = async (req, res) => {
   try {
-    const source = await Source.find();
+    const source = await Source.aggregate([
+      {
+        $addFields: {
+          sortOrder: {
+            $cond: {
+              if: { $eq: [{ $toLower: "$name" }, "others"] },
+              then: 1,
+              else: 0,
+            },
+          },
+        },
+      },
+      {
+        $sort: {
+          sortOrder: 1,
+          name: 1,
+        },
+      },
+      {
+        $project: {
+          sortOrder: 0,
+        },
+      },
+    ]);
 
     res.status(200).json({ source, message: "Fetching source successful" });
   } catch (error) {
