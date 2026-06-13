@@ -54,8 +54,8 @@ const CustomDatePicker = ({
             }`}
           wrapperClassName="w-full"
         />
-        <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none text-cusblack">
-          <Calendar size={16} />
+        <div className="absolute right-4.5 top-1/2 -translate-y-1/2 pointer-events-none text-cusblack">
+          <Calendar size={15} />
         </div>
       </div>
       {error && (

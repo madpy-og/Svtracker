@@ -81,7 +81,7 @@ const FormAddExpense = ({ form, handleSubmit, category, closeModal }: Props) => 
           type="button"
           onClick={closeModal}
           disabled={form.formState.isSubmitting}
-          className="px-4 h-9 md:h-10 border border-cusdarkgrey hover:bg-cusgrey text-cusblack text-bd-m md:text-bd font-semibold rounded-md transition-colors"
+          className="px-4 h-9 md:h-10 border border-cusdarkgrey hover:bg-cusgrey text-cusblack text-bd-m md:text-bd font-semibold rounded-md transition-colors cursor-pointer"
         >
           Cancel
         </button>
