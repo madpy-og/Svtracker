@@ -87,13 +87,8 @@ export const getMonthlySummary = async (req, res) => {
     const user = await User.findById(userObjectId);
     if (!user) return res.status(404).json({ message: "User not found" });
 
-    const startDate = user.createdAt || new Date();
-    const startYear = startDate.getFullYear();
-    const startMonth = startDate.getMonth() + 1; // 1-12
-
     const now = new Date();
-    const endYear = now.getFullYear();
-    const endMonth = now.getMonth() + 1;
+    const currentYear = now.getFullYear();
 
     const rawIncomeByMonth = await Income.aggregate([
       {
@@ -131,18 +126,30 @@ export const getMonthlySummary = async (req, res) => {
       { $sort: { "_id.year": 1, "_id.month": 1 } },
     ]);
 
+    // Determine the earliest year and month from the raw data
+    let startYear = now.getFullYear();
+    let startMonth = now.getMonth() + 1;
+
+    const allRecords = [...rawIncomeByMonth, ...rawExpenseByMonth];
+    if (allRecords.length > 0) {
+      allRecords.sort((a, b) => {
+        if (a._id.year === b._id.year) {
+          return a._id.month - b._id.month;
+        }
+        return a._id.year - b._id.year;
+      });
+      startYear = allRecords[0]._id.year;
+      startMonth = allRecords[0]._id.month;
+    }
+
     const fillGaps = (data) => {
       const result = [];
       let currYear = startYear;
       let currMonth = startMonth;
 
-      while (currYear < endYear || (currYear === endYear && currMonth <= endMonth)) {
-        const found = data.find(
-          (d) => d._id.year === currYear && d._id.month === currMonth
-        );
-        result.push(
-          found || { _id: { year: currYear, month: currMonth }, total: 0 }
-        );
+      for (let i = 0; i < 12; i++) {
+        const found = data.find((d) => d._id.year === currYear && d._id.month === currMonth);
+        result.push(found || { _id: { year: currYear, month: currMonth }, total: 0 });
 
         currMonth++;
         if (currMonth > 12) {
