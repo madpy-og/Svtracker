@@ -31,4 +31,26 @@ UserSchema.methods.comparePassword = async function (inputPassword) {
   return await bcrypt.compare(inputPassword, this.password);
 };
 
+// ── Static Methods ─────────────────────────────────────────────
+
+UserSchema.statics.findByIdSafe = function (id) {
+  return this.findById(id).select("-password");
+};
+
+UserSchema.statics.findByEmail = function (email) {
+  return this.findOne({ email });
+};
+
+UserSchema.statics.createUser = function ({ fullname, email, password }) {
+  return this.create({ fullname, email, password });
+};
+
+UserSchema.statics.updateProfileImg = function (id, url, publicId) {
+  return this.findByIdAndUpdate(
+    id,
+    { profileImage: { url, publicId } },
+    { returnDocument: "after", runValidators: true },
+  );
+};
+
 export default mongoose.model("User", UserSchema);

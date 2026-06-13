@@ -2,30 +2,7 @@ import Category from "../models/Category.js";
 
 export const getAllCategory = async (req, res) => {
   try {
-    const category = await Category.aggregate([
-      {
-        $addFields: {
-          sortOrder: {
-            $cond: {
-              if: { $eq: [{ $toLower: "$name" }, "others"] },
-              then: 1,
-              else: 0,
-            },
-          },
-        },
-      },
-      {
-        $sort: {
-          sortOrder: 1,
-          name: 1,
-        },
-      },
-      {
-        $project: {
-          sortOrder: 0,
-        },
-      },
-    ]);
+    const category = await Category.findAllSorted();
 
     res.status(200).json({ category, message: "Fetching category successful" });
   } catch (error) {
@@ -41,10 +18,7 @@ export const addCategory = async (req, res) => {
       return res.status(400).json({ message: "Request body is empty" });
     }
 
-    await Category.create({
-      name,
-      icon,
-    });
+    await Category.createCategory({ name, icon });
 
     res.status(201).json({ message: "Create new category successful" });
   } catch (error) {
@@ -54,7 +28,7 @@ export const addCategory = async (req, res) => {
 
 export const deleteCategory = async (req, res) => {
   try {
-    await Category.findByIdAndDelete(req.params.id);
+    await Category.deleteById(req.params.id);
 
     res.status(200).json({ message: "Category deleted succesfully" });
   } catch (error) {

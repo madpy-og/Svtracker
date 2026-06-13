@@ -2,7 +2,7 @@ import User from "../models/User.js";
 
 export const getUserById = async (req, res) => {
   try {
-    const user = await User.findById(req.user._id).select("-password");
+    const user = await User.findByIdSafe(req.user._id);
 
     if (!user) {
       return res.status(404).json({
@@ -31,16 +31,7 @@ export const updateProfileImage = async (req, res) => {
       });
     }
 
-    const updatedUser = await User.findByIdAndUpdate(
-      req.user._id,
-      {
-        profileImage: {
-          url,
-          publicId,
-        },
-      },
-      { returnDocument: "after", runValidators: true },
-    );
+    const updatedUser = await User.updateProfileImg(req.user._id, url, publicId);
 
     res.status(200).json({
       message: "Profile image updated successfully",

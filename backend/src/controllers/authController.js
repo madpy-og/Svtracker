@@ -10,7 +10,7 @@ const generateToken = async (_id) => {
 
 export const loginUser = async (req, res) => {
   try {
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findByEmail(req.body.email);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
@@ -39,11 +39,7 @@ export const registerUser = async (req, res) => {
   try {
     const { fullname, email, password } = req.body;
 
-    await User.create({
-      fullname: fullname,
-      email: email,
-      password: password,
-    });
+    await User.createUser({ fullname, email, password });
 
     res.status(201).json({ message: "User registered successfully" });
   } catch (error) {

@@ -3,11 +3,7 @@ import { Types } from "mongoose";
 
 export const getAllIncome = async (req, res) => {
   try {
-    const userId = req.user._id;
-
-    const income = await Income.find({ userId })
-      .sort({ date: -1 })
-      .populate("source");
+    const income = await Income.findByUser(req.user._id);
 
     res.status(200).json({ income, message: "Fetching income successful" });
   } catch (error) {
@@ -17,20 +13,13 @@ export const getAllIncome = async (req, res) => {
 
 export const addIncome = async (req, res) => {
   try {
-    const userId = req.user._id;
-
     const { source, amount, date } = req.body;
 
     if (!source || !amount) {
       return res.status(400).json({ message: "Request body is empty" });
     }
 
-    await Income.create({
-      userId,
-      source,
-      amount,
-      date: new Date(date),
-    });
+    await Income.createIncome({ userId: req.user._id, source, amount, date });
 
     res.status(201).json({ message: "Create new income successful" });
   } catch (error) {
@@ -40,7 +29,7 @@ export const addIncome = async (req, res) => {
 
 export const deleteIncome = async (req, res) => {
   try {
-    await Income.findByIdAndDelete(req.params.id);
+    await Income.deleteById(req.params.id);
 
     res.status(200).json({ message: "Income deleted succesfully" });
   } catch (error) {
@@ -51,31 +40,11 @@ export const deleteIncome = async (req, res) => {
 // ── GET /api/income/daily?days=30 ─────────────────────────────
 export const getDailyIncome = async (req, res) => {
   try {
-    const userId = req.user._id;
-    const userObjectId = new Types.ObjectId(String(userId));
+    const userObjectId = new Types.ObjectId(String(req.user._id));
     const days = parseInt(req.query.days) || 30;
-
     const startDate = new Date(Date.now() - days * 24 * 60 * 60 * 1000);
 
-    const result = await Income.aggregate([
-      {
-        $match: {
-          userId: userObjectId,
-          date: { $gte: startDate },
-        },
-      },
-      {
-        $group: {
-          _id: {
-            year: { $year: "$date" },
-            month: { $month: "$date" },
-            day: { $dayOfMonth: "$date" },
-          },
-          total: { $sum: "$amount" },
-        },
-      },
-      { $sort: { "_id.year": 1, "_id.month": 1, "_id.day": 1 } },
-    ]);
+    const result = await Income.aggregateDailyByUser(userObjectId, startDate);
 
     res.json(result);
   } catch (error) {
