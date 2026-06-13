@@ -6,26 +6,28 @@ import type {
 } from "../../schemas/incomeSchema";
 import type { SourceSchema } from "../../schemas/sourceSchema";
 import CustomSelect from "./CustomSelect";
+import CustomDatePicker from "./CustomDatePicker";
 
 type Props = {
   form: UseFormReturn<IncomeFormInput, unknown, IncomeFormOutput>;
   handleSubmit: (value: IncomeFormOutput) => Promise<void>;
   source: SourceSchema[];
+  closeModal: () => void;
 };
 
-const FormAddIncome = ({ form, handleSubmit, source }: Props) => {
+const FormAddIncome = ({ form, handleSubmit, source, closeModal }: Props) => {
   const sourceOptions = source.map((s) => ({
     label: s.name,
     value: s._id,
   }));
   return (
-    <div className="p-2 flex flex-col gap-4">
+    <div className="flex flex-col gap-5">
       <form onSubmit={form.handleSubmit(handleSubmit)} id="add-income-form">
-        <div className="flex flex-col gap-2.5">
+        <div className="flex flex-col gap-4">
           <div className="flex flex-col">
             <label
               htmlFor="source"
-              className="text-bd-m md:text-bd font-semibold mb-1"
+              className="text-bd-m md:text-bd font-semibold mb-1 text-cusblack"
             >
               Source
             </label>
@@ -40,7 +42,7 @@ const FormAddIncome = ({ form, handleSubmit, source }: Props) => {
           <div className="flex flex-col">
             <label
               htmlFor="amount"
-              className="text-bd-m md:text-bd font-semibold mb-1"
+              className="text-bd-m md:text-bd font-semibold mb-1 text-cusblack"
             >
               Amount
             </label>
@@ -60,33 +62,35 @@ const FormAddIncome = ({ form, handleSubmit, source }: Props) => {
           <div className="flex flex-col">
             <label
               htmlFor="date"
-              className="text-bd-m md:text-bd font-semibold mb-1"
+              className="text-bd-m md:text-bd font-semibold mb-1 text-cusblack"
             >
               Date
             </label>
-            <input
-              type="date"
-              id="date"
+            <CustomDatePicker
+              fieldName="date"
+              form={form}
               placeholder="YY-MM-DD"
-              {...form.register("date")}
-              className="input-box"
+              error={form.formState.errors.date?.message}
             />
-            {form.formState.errors.date && (
-              <p className="mt-1 text-bs-m md:text-bs text-danger">
-                {form.formState.errors.date.message}
-              </p>
-            )}
           </div>
         </div>
       </form>
-      <div className="flex justify-end">
+      <div className="flex justify-end gap-3 mt-2">
+        <button
+          type="button"
+          onClick={closeModal}
+          disabled={form.formState.isSubmitting}
+          className="px-4 h-9 md:h-10 border border-cusdarkgrey hover:bg-cusgrey text-cusblack text-bd-m md:text-bd font-semibold rounded-md transition-colors"
+        >
+          Cancel
+        </button>
         <button
           type="submit"
           form="add-income-form"
           disabled={form.formState.isSubmitting}
-          className={`${form.formState.isSubmitting ? "bg-cusred" : "bg-cusorange"} px-4 h-7 md:h-9 hover:bg-cusred text-cuswhite text-bd-m md:text-bd font-semibold rounded-md cursor-pointer`}
+          className={`${form.formState.isSubmitting ? "bg-cusred opacity-70" : "bg-cusorange hover:bg-cusred"} px-5 h-9 md:h-10 text-cuswhite text-bd-m md:text-bd font-semibold rounded-md shadow-md transition-all active:scale-95 cursor-pointer`}
         >
-          {form.formState.isSubmitting ? "Loading..." : "Add"}
+          {form.formState.isSubmitting ? "Saving..." : "Save Income"}
         </button>
       </div>
     </div>
