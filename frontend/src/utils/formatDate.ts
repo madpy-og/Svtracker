@@ -4,7 +4,7 @@ export const formatDate = (date?: string | Date | null) => {
   const parsed = new Date(date);
   if (isNaN(parsed.getTime())) return "-";
 
-  return new Intl.DateTimeFormat("id-ID", {
+  return new Intl.DateTimeFormat("en-US", {
     day: "2-digit",
     month: "long",
     year: "numeric",
