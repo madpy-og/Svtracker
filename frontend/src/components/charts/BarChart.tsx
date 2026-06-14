@@ -53,7 +53,7 @@ const BarChart = ({ title, labels, datasets, showLegend = false, yAxisFormatter 
       x: {
         grid: { display: false },
         border: { display: false },
-        ticks: { 
+        ticks: {
           autoSkip: false,
           maxRotation: 0,
           minRotation: 0,
@@ -67,7 +67,7 @@ const BarChart = ({ title, labels, datasets, showLegend = false, yAxisFormatter 
         beginAtZero: true,
         border: { display: false },
         grid: {
-          color: "#f3f4f6", // very light subtle color
+          color: "#f5f5f7", // very light subtle color
         },
         ticks: {
           maxTicksLimit: 5, // Reduce number of labels
@@ -81,8 +81,8 @@ const BarChart = ({ title, labels, datasets, showLegend = false, yAxisFormatter 
     },
   };
 
-  const minChartWidth = isMobile 
-    ? Math.max(paddedLabels.length * 60 + 50, 300) 
+  const minChartWidth = isMobile
+    ? Math.max(paddedLabels.length * 60 + 50, 300)
     : Math.max(paddedLabels.length * 80 + 80, 500);
 
   return (

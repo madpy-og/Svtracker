@@ -1,20 +1,34 @@
-import React from "react";
+import React, { useMemo } from "react";
 import Card from "../../components/ui/Card";
 import ListExpense from "../../components/ui/ListExpense";
 import { AddButton } from "../../components/ui/Button";
 import { useFinanceStore } from "../../store/financeStore";
 import ExpenseMonthlyBarChart from "../../components/charts/ExpenseMonthlyBarChart";
+import { formatRupiah } from "../../utils/formatRupiah";
 
 const Expense = () => {
   const { expense, monthlySummary } = useFinanceStore();
+
+  const averageExpense = useMemo(() => {
+    const data = monthlySummary?.expenseByMonth || [];
+    const filteredData = data.filter(curr => curr.total > 0);
+    if (filteredData.length === 0) return 0;
+    const total = filteredData.reduce((acc, curr) => acc + curr.total, 0);
+    return total / filteredData.length;
+  }, [monthlySummary]);
 
   return (
     <div className="flex flex-col gap-4">
       <div className="grid grid-cols-1 h-60 gap-3">
         <Card className="flex flex-col gap-2">
-          <p className="text-bd-m md:text-bd text-cusblack font-semibold">
-            Expense Per Month
-          </p>
+          <div className="flex justify-between items-center">
+            <p className="text-bd-m md:text-bd text-cusblack font-semibold">
+              Expense Per Month
+            </p>
+            <p className="text-bs-m md:text-bs text-cusdarkgrey font-medium">
+              Avg: {formatRupiah(averageExpense)} / month
+            </p>
+          </div>
           <ExpenseMonthlyBarChart expenseByMonth={monthlySummary?.expenseByMonth || []} />
         </Card>
       </div>
