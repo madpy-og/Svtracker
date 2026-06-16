@@ -2,12 +2,14 @@ import React, { useMemo } from "react";
 import Card from "../../components/ui/Card";
 import ListIncome from "../../components/ui/ListIncome";
 import { AddButton } from "../../components/ui/Button";
-import { useFinanceStore } from "../../store/financeStore";
+import { useGetIncomes } from "../../hooks/useIncome";
+import { useGetMonthlySummary } from "../../hooks/useDashboard";
 import IncomeMonthlyBarChart from "../../components/charts/IncomeMonthlyBarChart";
 import { formatRupiah } from "../../utils/formatRupiah";
 
 const Income = () => {
-  const { income, monthlySummary } = useFinanceStore();
+  const { data: income = [] } = useGetIncomes();
+  const { data: monthlySummary } = useGetMonthlySummary();
 
   const averageIncome = useMemo(() => {
     const data = monthlySummary?.incomeByMonth || [];

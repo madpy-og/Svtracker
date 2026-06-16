@@ -1,10 +1,10 @@
 import Card from "../../components/ui/Card";
 import { formatRupiah } from "../../utils/formatRupiah";
 import ListRecentTransactions from "../../components/ui/ListRecentTransactions";
-import { useFinanceStore } from "../../store/financeStore";
+import { useGetDashboard } from "../../hooks/useDashboard";
 
 const Home = () => {
-  const { dashboard } = useFinanceStore();
+  const { data: dashboard, isLoading } = useGetDashboard();
 
   return (
     <div className="flex flex-col gap-4">

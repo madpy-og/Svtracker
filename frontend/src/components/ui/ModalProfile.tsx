@@ -7,11 +7,12 @@ import { Download, X, Image as ImageIcon } from "lucide-react";
 import { uploadToCloudinary } from "../../api/cloudinaryApi";
 import { updateProfileImage } from "../../api/userApi";
 import { useUIStore } from "../../store/uiStore";
-import { useFinanceStore } from "../../store/financeStore";
+import { useQueryClient } from "@tanstack/react-query";
+import { userKeys } from "../../hooks/useUser";
 
 const ModalProfile = () => {
   const { openModal, closeModal } = useUIStore();
-  const { fetchProfile } = useFinanceStore();
+  const queryClient = useQueryClient();
 
   const form = useForm<UploadSchema>({
     resolver: zodResolver(uploadSchema),
@@ -35,7 +36,7 @@ const ModalProfile = () => {
       }
 
       await updateProfileImage(data.url, data.publicId);
-      await fetchProfile(); // Sync profile data after upload
+      await queryClient.invalidateQueries({ queryKey: userKeys.profile }); // Sync profile data after upload
       handleClose();
     } catch (error) {
       console.error(error);

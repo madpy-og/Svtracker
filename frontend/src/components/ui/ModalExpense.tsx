@@ -10,11 +10,13 @@ import {
 import AddExpenseForm from "./FormAddExpense";
 import Card from "./Card";
 import { useUIStore } from "../../store/uiStore";
-import { useFinanceStore } from "../../store/financeStore";
+import { useGetCategories } from "../../hooks/useCategory";
+import { useAddExpense } from "../../hooks/useExpense";
 
 const ModalExpense = () => {
   const { openModal, closeModal } = useUIStore();
-  const { category, createExpense } = useFinanceStore();
+  const { data: category = [] } = useGetCategories();
+  const { mutateAsync: createExpense } = useAddExpense();
 
   const form = useForm<ExpenseFormInput, unknown, ExpenseFormOutput>({
     resolver: zodResolver(expenseFormSchema),

@@ -8,7 +8,6 @@ import ModalIncome from "../ui/ModalIncome";
 import ModalExpense from "../ui/ModalExpense";
 import ModalProfile from "../ui/ModalProfile";
 import { useUIStore } from "../../store/uiStore";
-import { useFinanceStore } from "../../store/financeStore";
 
 const PageTitles: Record<string, string> = {
   "/": "Analytics",
@@ -19,18 +18,12 @@ const PageTitles: Record<string, string> = {
 
 const DashboardLayout = () => {
   const { openDrawer, setOpenDrawer, pageName, setPageName } = useUIStore();
-  const { fetchAllData } = useFinanceStore();
-
   const location = useLocation();
 
   useEffect(() => {
     const title = PageTitles[location.pathname] || "Analytics";
     setPageName(title);
   }, [location.pathname, setPageName]);
-
-  useEffect(() => {
-    fetchAllData();
-  }, [fetchAllData]);
 
 
   return (

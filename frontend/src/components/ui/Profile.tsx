@@ -1,6 +1,6 @@
 import React from "react";
 import { EditButton } from "./Button";
-import { useFinanceStore } from "../../store/financeStore";
+import { useGetProfile } from "../../hooks/useUser";
 
 type Props = {
   className?: string;
@@ -8,7 +8,7 @@ type Props = {
 };
 
 const Profile = ({ className, variant }: Props) => {
-  const { profile: user } = useFinanceStore();
+  const { data: user } = useGetProfile();
 
   if (variant === "vertical") {
     return (

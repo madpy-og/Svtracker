@@ -10,11 +10,13 @@ import {
 import FormAddIncome from "./FormAddIncome";
 import Card from "./Card";
 import { useUIStore } from "../../store/uiStore";
-import { useFinanceStore } from "../../store/financeStore";
+import { useGetSources } from "../../hooks/useSource";
+import { useAddIncome } from "../../hooks/useIncome";
 
 const ModalIncome = () => {
   const { openModal, closeModal } = useUIStore();
-  const { source, createIncome } = useFinanceStore();
+  const { data: source = [] } = useGetSources();
+  const { mutateAsync: createIncome } = useAddIncome();
 
   const form = useForm<IncomeFormInput, unknown, IncomeFormOutput>({
     resolver: zodResolver(incomeFormSchema),
