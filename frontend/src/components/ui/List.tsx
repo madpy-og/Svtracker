@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { formatDate } from "../../utils/formatDate";
 import { formatRupiah } from "../../utils/formatRupiah";
-import { TrendingDown, TrendingUp, Trash2 } from "lucide-react";
+import { TrendingDown, TrendingUp, Trash2, X } from "lucide-react";
+import Card from "./Card";
 
 type Props = {
   icon: string;
@@ -13,8 +14,11 @@ type Props = {
 };
 
 const List = ({ icon, sourceName, categoryName, date, amount, onDelete }: Props) => {
+  const [showConfirm, setShowConfirm] = useState(false);
+
   return (
-    <div className="w-full flex justify-between items-center p-1 md:p-2 rounded-md hover:bg-cusgrey group">
+    <>
+      <div className="w-full flex justify-between items-center p-1 md:p-2 rounded-md hover:bg-cusgrey group">
       <div className="flex gap-2 items-center">
         <img
           src={icon}
@@ -52,7 +56,7 @@ const List = ({ icon, sourceName, categoryName, date, amount, onDelete }: Props)
         </div>
         {onDelete && (
           <button
-            onClick={onDelete}
+            onClick={() => setShowConfirm(true)}
             className="p-1 rounded-md text-cusdarkgrey hover:bg-danger/10 hover:text-danger transition-colors opacity-100 md:opacity-0 md:group-hover:opacity-100 cursor-pointer"
             title="Delete"
           >
@@ -61,6 +65,47 @@ const List = ({ icon, sourceName, categoryName, date, amount, onDelete }: Props)
         )}
       </div>
     </div>
+      
+      {showConfirm && (
+        <>
+          <div 
+            className="fixed inset-0 z-90 bg-black/40 transition-opacity duration-300 opacity-100"
+            onClick={() => setShowConfirm(false)}
+          ></div>
+          <div className="fixed z-100 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-[420px]">
+            <Card className="relative w-full shadow-2xl p-5 md:p-6 flex flex-col gap-4">
+              <div className="flex items-center justify-between border-b border-cusgrey pb-3">
+                <h2 className="text-h5-m md:text-h5 font-bold text-cusblack">Confirm Deletion</h2>
+                <button
+                  onClick={() => setShowConfirm(false)}
+                  className="p-1 rounded-md text-cusdarkgrey hover:bg-cusgrey hover:text-cusblack transition-colors cursor-pointer"
+                  aria-label="Close modal"
+                >
+                  <X size={20} />
+                </button>
+              </div>
+              <p className="text-bs-m md:text-bs text-cusdarkgrey">
+                Are you sure you want to delete this {sourceName ? 'income' : 'expense'} record?
+              </p>
+              <div className="flex justify-end gap-3 mt-2">
+                <button 
+                  onClick={() => setShowConfirm(false)} 
+                  className="px-4 py-2 rounded-md bg-cusgrey text-cusblack font-semibold hover:bg-cusgrey/80 transition-colors cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button 
+                  onClick={() => { onDelete?.(); setShowConfirm(false); }} 
+                  className="px-4 py-2 rounded-md bg-danger text-white font-semibold hover:bg-danger/80 transition-colors cursor-pointer"
+                >
+                  Delete
+                </button>
+              </div>
+            </Card>
+          </div>
+        </>
+      )}
+    </>
   );
 };
 
