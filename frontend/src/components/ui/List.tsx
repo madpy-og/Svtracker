@@ -1,7 +1,7 @@
 import React from "react";
 import { formatDate } from "../../utils/formatDate";
 import { formatRupiah } from "../../utils/formatRupiah";
-import { TrendingDown, TrendingUp } from "lucide-react";
+import { TrendingDown, TrendingUp, Trash2 } from "lucide-react";
 
 type Props = {
   icon: string;
@@ -9,11 +9,12 @@ type Props = {
   categoryName?: string;
   date: string;
   amount: number;
+  onDelete?: () => void;
 };
 
-const List = ({ icon, sourceName, categoryName, date, amount }: Props) => {
+const List = ({ icon, sourceName, categoryName, date, amount, onDelete }: Props) => {
   return (
-    <div className="w-full flex justify-between items-center p-1 md:p-2 rounded-md hover:bg-cusgrey">
+    <div className="w-full flex justify-between items-center p-1 md:p-2 rounded-md hover:bg-cusgrey group">
       <div className="flex gap-2 items-center">
         <img
           src={icon}
@@ -29,7 +30,7 @@ const List = ({ icon, sourceName, categoryName, date, amount }: Props) => {
           </p>
         </div>
       </div>
-      <div>
+      <div className="flex gap-2">
         <div
           className={`${sourceName ? "flex items-center rounded-md gap-1 py-1 px-2 whitespace-nowrap bg-success/10 text-success" : "flex items-center rounded-md gap-1 py-1 px-2 whitespace-nowrap bg-danger/10 text-danger"}`}
         >
@@ -49,6 +50,15 @@ const List = ({ icon, sourceName, categoryName, date, amount }: Props) => {
             </>
           )}
         </div>
+        {onDelete && (
+          <button
+            onClick={onDelete}
+            className="p-1 rounded-md text-cusdarkgrey hover:bg-danger/10 hover:text-danger transition-colors opacity-100 md:opacity-0 md:group-hover:opacity-100 cursor-pointer"
+            title="Delete"
+          >
+            <Trash2 className="w-4 h-4 md:w-5 md:h-5" />
+          </button>
+        )}
       </div>
     </div>
   );
