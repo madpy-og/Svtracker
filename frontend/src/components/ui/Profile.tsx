@@ -1,6 +1,7 @@
 import React from "react";
 import { EditButton } from "./Button";
 import { useGetProfile } from "../../hooks/useUser";
+import SkeletonProfile from "../skeleton/SkeletonProfile";
 
 type Props = {
   className?: string;
@@ -8,7 +9,9 @@ type Props = {
 };
 
 const Profile = ({ className, variant }: Props) => {
-  const { data: user } = useGetProfile();
+  const { data: user, isLoading } = useGetProfile();
+
+  if (isLoading) return <SkeletonProfile variant={variant} className={className} />;
 
   if (variant === "vertical") {
     return (
