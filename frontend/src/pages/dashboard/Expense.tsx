@@ -6,10 +6,12 @@ import { useGetExpenses } from "../../hooks/useExpense";
 import { useGetMonthlySummary } from "../../hooks/useDashboard";
 import ExpenseMonthlyBarChart from "../../components/charts/ExpenseMonthlyBarChart";
 import { formatRupiah } from "../../utils/formatRupiah";
+import SkeletonChart from "../../components/skeleton/SkeletonChart";
+import SkeletonList from "../../components/skeleton/SkeletonList";
 
 const Expense = () => {
-  const { data: expense = [] } = useGetExpenses();
-  const { data: monthlySummary } = useGetMonthlySummary();
+  const { data: expense = [], isLoading: isExpenseLoading } = useGetExpenses();
+  const { data: monthlySummary, isLoading: isSummaryLoading } = useGetMonthlySummary();
 
   const averageExpense = useMemo(() => {
     const data = monthlySummary?.expenseByMonth || [];
@@ -22,17 +24,21 @@ const Expense = () => {
   return (
     <div className="flex flex-col gap-4">
       <div className="grid grid-cols-1 h-60 gap-3">
-        <Card className="flex flex-col gap-2">
-          <div className="flex justify-between items-center">
-            <p className="text-bd-m md:text-bd text-cusblack font-semibold">
-              Expense Per Month
-            </p>
-            <p className="text-bs-m md:text-bs text-cusdarkgrey font-medium">
-              Avg: {formatRupiah(averageExpense)} / month
-            </p>
-          </div>
-          <ExpenseMonthlyBarChart expenseByMonth={monthlySummary?.expenseByMonth || []} />
-        </Card>
+        {isSummaryLoading ? (
+          <SkeletonChart />
+        ) : (
+          <Card className="flex flex-col gap-2">
+            <div className="flex justify-between items-center">
+              <p className="text-bd-m md:text-bd text-cusblack font-semibold">
+                Expense Per Month
+              </p>
+              <p className="text-bs-m md:text-bs text-cusdarkgrey font-medium">
+                Avg: {formatRupiah(averageExpense)} / month
+              </p>
+            </div>
+            <ExpenseMonthlyBarChart expenseByMonth={monthlySummary?.expenseByMonth || []} />
+          </Card>
+        )}
       </div>
       <div className="grid grid-cols-1 h-100 gap-3">
         <Card className="flex flex-col gap-2">
@@ -43,7 +49,11 @@ const Expense = () => {
             <AddButton variant="addExpense" />
           </div>
           <div className="grid grid-cols-1 md:grid md:grid-cols-2 gap-1 md:gap-2">
-            <ListExpense datas={expense} />
+            {isExpenseLoading ? (
+              <SkeletonList count={6} />
+            ) : (
+              <ListExpense datas={expense} />
+            )}
           </div>
         </Card>
       </div>
