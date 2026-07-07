@@ -2,9 +2,35 @@ import Card from "../../components/ui/Card";
 import { formatRupiah } from "../../utils/formatRupiah";
 import ListRecentTransactions from "../../components/ui/ListRecentTransactions";
 import { useGetDashboard } from "../../hooks/useDashboard";
+import SkeletonCard from "../../components/skeleton/SkeletonCard";
+import SkeletonList from "../../components/skeleton/SkeletonList";
+import Skeleton from "react-loading-skeleton";
+
+const HomeSkeleton = () => {
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="grid grid-cols-2 min-[600px]:grid-cols-2 min-[950px]:grid-cols-4 gap-3">
+        <SkeletonCard />
+        <SkeletonCard />
+        <SkeletonCard />
+        <SkeletonCard />
+      </div>
+      <div className="grid grid-cols-1 min-[950px]:grid-cols-4 grid-row-2 gap-3">
+        <Card className="flex flex-col md:col-span-2 md:row-span-2 h-105 gap-2 overflow-hidden">
+          <Skeleton width={150} height={20} className="mb-2" />
+          <div className="grid grid-cols-1 gap-1 md:gap-2">
+            <SkeletonList count={5} />
+          </div>
+        </Card>
+      </div>
+    </div>
+  );
+};
 
 const Home = () => {
   const { data: dashboard, isLoading } = useGetDashboard();
+
+  if (isLoading) return <HomeSkeleton />;
 
   return (
     <div className="flex flex-col gap-4">
