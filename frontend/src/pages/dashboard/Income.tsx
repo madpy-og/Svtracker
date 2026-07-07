@@ -6,10 +6,12 @@ import { useGetIncomes } from "../../hooks/useIncome";
 import { useGetMonthlySummary } from "../../hooks/useDashboard";
 import IncomeMonthlyBarChart from "../../components/charts/IncomeMonthlyBarChart";
 import { formatRupiah } from "../../utils/formatRupiah";
+import SkeletonChart from "../../components/skeleton/SkeletonChart";
+import SkeletonList from "../../components/skeleton/SkeletonList";
 
 const Income = () => {
-  const { data: income = [] } = useGetIncomes();
-  const { data: monthlySummary } = useGetMonthlySummary();
+  const { data: income = [], isLoading: isIncomeLoading } = useGetIncomes();
+  const { data: monthlySummary, isLoading: isSummaryLoading } = useGetMonthlySummary();
 
   const averageIncome = useMemo(() => {
     const data = monthlySummary?.incomeByMonth || [];
@@ -22,17 +24,21 @@ const Income = () => {
   return (
     <div className="flex flex-col gap-4">
       <div className="grid grid-cols-1 h-60 gap-3">
-        <Card className="flex flex-col gap-2">
-          <div className="flex justify-between items-center">
-            <p className="text-bd-m md:text-bd text-cusblack font-semibold">
-              Income Per Month
-            </p>
-            <p className="text-bs-m md:text-bs text-cusdarkgrey font-medium">
-              Avg: {formatRupiah(averageIncome)} / month
-            </p>
-          </div>
-          <IncomeMonthlyBarChart incomeByMonth={monthlySummary?.incomeByMonth || []} />
-        </Card>
+        {isSummaryLoading ? (
+          <SkeletonChart />
+        ) : (
+          <Card className="flex flex-col gap-2">
+            <div className="flex justify-between items-center">
+              <p className="text-bd-m md:text-bd text-cusblack font-semibold">
+                Income Per Month
+              </p>
+              <p className="text-bs-m md:text-bs text-cusdarkgrey font-medium">
+                Avg: {formatRupiah(averageIncome)} / month
+              </p>
+            </div>
+            <IncomeMonthlyBarChart incomeByMonth={monthlySummary?.incomeByMonth || []} />
+          </Card>
+        )}
       </div>
       <div className="grid grid-cols-1 h-100 gap-3">
         <Card className="flex flex-col gap-2">
@@ -43,7 +49,11 @@ const Income = () => {
             <AddButton variant="addIncome" />
           </div>
           <div className="grid grid-cols-1 md:grid md:grid-cols-2 gap-1 md:gap-2">
-            <ListIncome datas={income} />
+            {isIncomeLoading ? (
+              <SkeletonList count={6} />
+            ) : (
+              <ListIncome datas={income} />
+            )}
           </div>
         </Card>
       </div>
