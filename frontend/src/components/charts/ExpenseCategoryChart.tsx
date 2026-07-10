@@ -18,7 +18,7 @@ type Props = {
 };
 
 const ExpenseCategoryChart = ({ categories }: Props) => {
-  const labels = categories.map((c) => `${c.icon} ${c.name}`);
+  const labels = categories.map((c) => c.name);
   const datasets = [
     {
       data: categories.map((c) => c.total),

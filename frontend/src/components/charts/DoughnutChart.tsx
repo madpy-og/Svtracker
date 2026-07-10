@@ -16,7 +16,7 @@ const DoughnutChart = ({
   labels,
   datasets,
   showLegend = true,
-  legendPosition = "right",
+  legendPosition = "bottom",
   tooltipFormatter,
   cutout = "70%",
 }: Props) => {
@@ -30,7 +30,7 @@ const DoughnutChart = ({
     maintainAspectRatio: false,
     cutout,
     plugins: {
-      legend: { display: showLegend, position: legendPosition, labels: { font: { size: 12 } } },
+      legend: { display: showLegend, position: legendPosition, labels: { font: { size: 11.1 }, boxWidth: 14, padding: 8 } },
       title: { display: !!title, text: title || "" },
       tooltip: {
         callbacks: {

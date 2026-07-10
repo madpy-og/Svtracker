@@ -18,7 +18,7 @@ type Props = {
 };
 
 const IncomeCategoryChart = ({ sources }: Props) => {
-  const labels = sources.map((s) => `${s.icon} ${s.name}`);
+  const labels = sources.map((s) => s.name);
   const datasets = [
     {
       data: sources.map((s) => s.total),

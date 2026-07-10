@@ -5,6 +5,7 @@ import { useGetDashboard } from "../../hooks/useDashboard";
 import SkeletonCard from "../../components/skeleton/SkeletonCard";
 import SkeletonList from "../../components/skeleton/SkeletonList";
 import Skeleton from "react-loading-skeleton";
+import DistributionDonutChart from "../../components/charts/DistributionDonutChart";
 
 const HomeSkeleton = () => {
   return (
@@ -77,6 +78,9 @@ const Home = () => {
               transactions={dashboard?.recentTransactions ?? []}
             />
           </div>
+        </Card>
+        <Card className="flex flex-col  md:col-span-2 md:row-span-2 h-105 gap-2 overflow-hidden">
+          <DistributionDonutChart />
         </Card>
       </div>
     </div>
