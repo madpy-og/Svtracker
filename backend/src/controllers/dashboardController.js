@@ -32,15 +32,15 @@ export const getDashboardData = async (req, res) => {
       0,
     );
 
-    const recentIncomes = await Income.findRecentByUser(userId, 7);
-    const recentExpenses = await Expense.findRecentByUser(userId, 7);
+    const recentIncomes = await Income.findRecentByUser(userId, 50);
+    const recentExpenses = await Expense.findRecentByUser(userId, 50);
 
     const lastTransactions = [
       ...recentIncomes.map((txn) => ({ ...txn.toObject(), type: "income" })),
       ...recentExpenses.map((txn) => ({ ...txn.toObject(), type: "expense" })),
     ]
       .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-      .slice(0, 7);
+      .slice(0, 50);
 
     res.json({
       totalBalance:

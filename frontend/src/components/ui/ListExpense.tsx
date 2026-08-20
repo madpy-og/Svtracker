@@ -1,14 +1,30 @@
-import React from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import type { ExpenseSchema } from "../../schemas/expenseSchema";
 import List from "./List";
 import { useDeleteExpense } from "../../hooks/useExpense";
+import CardPagination from "./CardPagination";
 
 type Props = {
   datas: ExpenseSchema[];
+  itemsPerPage?: number;
 };
 
-const ListExpense = ({ datas }: Props) => {
+const ListExpense = ({ datas = [], itemsPerPage = 8 }: Props) => {
   const { mutate: deleteExpense } = useDeleteExpense();
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const totalPages = Math.ceil(datas.length / itemsPerPage);
+
+  const paginatedData = useMemo(() => {
+    const start = (currentPage - 1) * itemsPerPage;
+    return datas.slice(start, start + itemsPerPage);
+  }, [datas, currentPage, itemsPerPage]);
+
+  useEffect(() => {
+    if (currentPage > totalPages && totalPages > 0) {
+      setCurrentPage(totalPages);
+    }
+  }, [currentPage, totalPages]);
 
   if (!datas || datas.length === 0) {
     return (
@@ -20,7 +36,7 @@ const ListExpense = ({ datas }: Props) => {
 
   return (
     <>
-      {datas.map((data) => {
+      {paginatedData.map((data) => {
         return (
           <List
             key={data._id}
@@ -32,6 +48,16 @@ const ListExpense = ({ datas }: Props) => {
           />
         );
       })}
+      {totalPages > 1 && (
+        <div className="col-span-full">
+          <CardPagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={setCurrentPage}
+            totalItems={datas.length}
+          />
+        </div>
+      )}
     </>
   );
 };

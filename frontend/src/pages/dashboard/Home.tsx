@@ -73,11 +73,9 @@ const Home = () => {
           <p className="text-bd-m md:text-bd text-cusblack font-semibold">
             Recent Transactions
           </p>
-          <div className="grid grid-cols-1 gap-1 md:gap-2">
-            <ListRecentTransactions
-              transactions={dashboard?.recentTransactions ?? []}
-            />
-          </div>
+          <ListRecentTransactions
+            transactions={dashboard?.recentTransactions ?? []}
+          />
         </Card>
         <Card className="flex flex-col min-[950px]:col-span-2 h-fit gap-2">
           <DistributionDonutChart />
