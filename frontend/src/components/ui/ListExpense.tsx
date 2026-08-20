@@ -10,6 +10,14 @@ type Props = {
 const ListExpense = ({ datas }: Props) => {
   const { mutate: deleteExpense } = useDeleteExpense();
 
+  if (!datas || datas.length === 0) {
+    return (
+      <div className="col-span-full py-6 text-center text-cusdarkgrey text-bs-m md:text-bs">
+        No expense records yet
+      </div>
+    );
+  }
+
   return (
     <>
       {datas.map((data) => {

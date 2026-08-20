@@ -40,7 +40,7 @@ const Income = () => {
           </Card>
         )}
       </div>
-      <div className="grid grid-cols-1 h-100 gap-3">
+      <div className="grid grid-cols-1 gap-3">
         <Card className="flex flex-col gap-2">
           <div className="flex justify-between items-center">
             <p className="text-bd-m md:text-bd text-cusblack font-semibold">

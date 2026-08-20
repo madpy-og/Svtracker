@@ -10,9 +10,17 @@ type Props = {
 };
 
 const ListRecentTransactions = ({ transactions }: Props) => {
+  if (!transactions || transactions.length === 0) {
+    return (
+      <div className="py-6 text-center text-cusdarkgrey text-bs-m md:text-bs">
+        No recent transactions
+      </div>
+    );
+  }
+
   return (
     <>
-      {transactions.map((transaction) => {
+      {transactions.slice(0, 7).map((transaction) => {
         return (
           <List
             key={transaction._id}

@@ -16,11 +16,11 @@ const HomeSkeleton = () => {
         <SkeletonCard />
         <SkeletonCard />
       </div>
-      <div className="grid grid-cols-1 min-[950px]:grid-cols-4 grid-row-2 gap-3">
-        <Card className="flex flex-col md:col-span-2 md:row-span-2 h-105 gap-2 overflow-hidden">
+      <div className="grid grid-cols-1 min-[950px]:grid-cols-4 gap-3 items-start">
+        <Card className="flex flex-col min-[950px]:col-span-2 h-fit gap-2">
           <Skeleton width={150} height={20} className="mb-2" />
           <div className="grid grid-cols-1 gap-1 md:gap-2">
-            <SkeletonList count={5} />
+            <SkeletonList count={7} />
           </div>
         </Card>
       </div>
@@ -68,8 +68,8 @@ const Home = () => {
           <p className="text-h5-m md:text-h5 text-cusblack font-bold">20%</p>
         </Card>
       </div>
-      <div className="grid grid-cols-1 min-[950px]:grid-cols-4 grid-row-2 gap-3">
-        <Card className="flex flex-col md:col-span-2 md:row-span-2 h-105 gap-2 overflow-hidden">
+      <div className="grid grid-cols-1 min-[950px]:grid-cols-4 gap-3 items-start">
+        <Card className="flex flex-col min-[950px]:col-span-2 h-fit gap-2">
           <p className="text-bd-m md:text-bd text-cusblack font-semibold">
             Recent Transactions
           </p>
@@ -79,7 +79,7 @@ const Home = () => {
             />
           </div>
         </Card>
-        <Card className="flex flex-col  md:col-span-2 md:row-span-2 h-105 gap-2 overflow-hidden">
+        <Card className="flex flex-col min-[950px]:col-span-2 h-fit gap-2">
           <DistributionDonutChart />
         </Card>
       </div>

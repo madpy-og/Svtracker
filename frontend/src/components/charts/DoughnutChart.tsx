@@ -30,7 +30,7 @@ const DoughnutChart = ({
     maintainAspectRatio: false,
     cutout,
     plugins: {
-      legend: { display: showLegend, position: legendPosition, labels: { font: { size: 11.1 }, boxWidth: 14, padding: 8 } },
+      legend: { display: showLegend, position: legendPosition, labels: { font: { size: 11.1 }, boxWidth: 10, padding: 8 } },
       title: { display: !!title, text: title || "" },
       tooltip: {
         callbacks: {
