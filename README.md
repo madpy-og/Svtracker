@@ -3,6 +3,7 @@
 **Svtracker** is a modern personal finance management tool designed to help users track their spending habits through an intuitive, data-driven dashboard.
 
 > **Backend Repository:** [madpy-og/Svtracker-backend](https://github.com/madpy-og/Svtracker-backend)
+> **API URL:** `https://api.svtracker.maddaathia.my.id`
 
 ## Tech Stack
 - **Framework:** React with Vite & TypeScript
