@@ -8,7 +8,7 @@
 ---
 
 ## Repositories
-- **Frontend Repository:** [madpy-og/Svtracker](https://github.com/madpy-og/Svtracker)
+- **Frontend Repository:** [madpy-og/Svtracker-frontend](https://github.com/madpy-og/Svtracker-frontend)
 - **Backend Repository:** [madpy-og/Svtracker-backend](https://github.com/madpy-og/Svtracker-backend)
 
 ---
